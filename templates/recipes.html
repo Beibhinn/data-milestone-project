@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    </head>
+    <body>
+        {% for recipe in recipes %}
+            {{recipe.title}}
+            {{recipe.ingredients}}
+            {{recipe.special_equipment}}
+            {{recipe.method}}
+            {{recipe.user_name}}
+            {{recipe.cuisine_name}}
+            {{recipe.tag_name}}
+        {% endfor %}
+    </body>
+</html>
