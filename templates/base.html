@@ -3,16 +3,35 @@
 
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 </head>
 
 <body>
-    <div class="container">
-        {% block content %} {% endblock %}
-    </div>
+<div class="container">
+    {% block content %} {% endblock %}
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+          $('.chips-placeholder').chips({
+            placeholder: 'Enter a tag',
+            secondaryPlaceholder: '+Tag',
+          });
+          $('.chips-autocomplete').chips({
+            autocompleteOptions: {
+              data: {
+                'Tag1': null,
+                'Tag2': null,
+                'Tag3': null
+              },
+              limit: Infinity,
+              minLength: 1
+            }
+          });
+
+</script>
 </body>
 
 </html>
