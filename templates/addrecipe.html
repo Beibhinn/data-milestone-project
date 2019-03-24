@@ -3,43 +3,54 @@
 
 <h3>Add a Recipe</h3>
 <div class="row">
-    <form class="col s12">
+    <form action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s8">
                 <i class="material-icons prefix">short_text</i>
-                <input id="title" name="title" type="text">
+                <input id="title" name="title" type="text" required>
                 <label>Recipe Title</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">add_a_photo</i>
+                <input id="photo_src" name="photo_src" type="text">
+                <label>Photo Url</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">person</i>
-                <input id="user_name" name="user_name" type="text">
+                <input id="user_name" name="user_name" type="text" required>
                 <label for="user_name">User</label>
             </div>
             <div class="input-field col s6">
-               <i class="material-icons prefix">restaurant</i>
-                <input id="cuisine_name" name="cuisine_name" type="text">
+                <i class="material-icons prefix">restaurant</i>
+                <input id="cuisine_name" name="cuisine_name" type="text" required>
                 <label for="cuisine_name">Cuisine Type</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">list</i>
-                <textarea name="ingredients" id="ingredients" class="materialize-textarea"></textarea>
+                <ul id="ingred-list">
+                    <li><input name="ingredients[0]" id="ingredients" class="materialize-textarea" required></li>
+                    <a class="btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i class="material-icons">add</i></a>
+                </ul>
                 <label for="ingredients">Ingredients</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">description</i>
-                <textarea name="method" id="method" class="materialize-textarea"></textarea>
+                <ol id="method-list">
+                    <li><input name="method[0]" id="method" class="materialize-textarea" required></li>
+                    <a class="btn-floating btn-small waves-effect waves-light blue" id="add-method"><i class="material-icons">add</i></a>
+                </ol>
                 <label for="method">Method</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6">
-               <i class="material-icons prefix">label</i>
+                <i class="material-icons prefix">label</i>
                 <div class="chips chips chips-placeholder chips-autocomplete">
                     <input id="tag_name" name="tag_name">
                 </div>
@@ -54,4 +65,17 @@
 </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let ingredientCount = 1;
+    $("#add-ingred").on('click', function() {
+        $('#ingred-list li:last').append(`<li><input name='ingredients[${ingredientCount++}]' class="materialize-textarea"></li>`);
+    });
+    let methodCount = 1;
+    $("#add-method").on('click', function() {
+        $('#method-list li:last').append(`<li><input name='method[${methodCount++}]' class="materialize-textarea"></li>`);
+    });
+</script>
 {% endblock %}
