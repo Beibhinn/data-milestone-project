@@ -3,17 +3,17 @@
 
 <h3>Edit Recipe</h3>
 <div class="row">
-    <form class="col s12">
+    <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST" class="col s12">
         <div class="row">
             <div class="input-field col s8">
                 <i class="material-icons prefix">short_text</i>
                 <input id="title" name="title" type="text" value="{{recipe.title}}" required>
-                <label>Recipe Title</label>
+                <label for="title">Recipe Title</label>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">add_a_photo</i>
                 <input id="photo_src" name="photo_src" type="text" value="{{recipe.photo_src}}">
-                <label>Photo Url</label>
+                <label for="photo_src">Photo Url</label>
             </div>
         </div>
         <div class="row">
@@ -33,7 +33,7 @@
                 <i class="material-icons prefix">list</i>
                 <ul id="ingred-list">
                     {% for ingred in recipe.ingredients %}
-                    <li><input name="ingredients[i]" id="ingredients" class="materialize-textarea" value="{{ingred}}"
+                    <li><input name="ingredients[{{ loop.index }}]" id="ingredients" class="materialize-textarea" value="{{ingred}}"
                                required></li>
                     {% endfor %}
                     <a class="btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i
@@ -48,7 +48,7 @@
                 <ol id="method-list">
                     {% for method in recipe.method %}
                     <li>
-                        <textarea name="method[0]" id="method" class="materialize-textarea" required>{{method}}</textarea>
+                        <textarea name="method[{{ loop.index0 }}]" id="method" class="materialize-textarea">{{method}}</textarea>
                     </li>
                     {% endfor %}
                     <a class="btn-floating btn-small waves-effect waves-light blue" id="add-method"><i

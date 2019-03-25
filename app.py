@@ -10,9 +10,18 @@ app.config["MONGO_URI"] = 'mongodb+srv://root:r00tUser@myfirstcluster-8j8nw.mong
 mongo = PyMongo(app)
 
 
+def create_recipe_from_form(form):
+    items = form.to_dict().items()
+    recipe = {key: value for (key, value) in items if 'ingredients' not in key and 'method' not in key}
+    recipe['ingredients'] = [value for (key, value) in items if 'ingredients' in key]
+    recipe['method'] = [value for (key, value) in items if 'method' in key]
+    return recipe
+
+
 @app.route('/')
 @app.route('/get_recipes')
 def get_recipes():
+    my_recipe = mongo.db.recipes.find()
     return render_template("recipes.html",
            recipes = mongo.db.recipes.find())
 
@@ -30,10 +39,7 @@ def add_recipe():
 
 @app.route('/insert_recipe', methods=["POST"])
 def insert_recipe():
-    form_data = request.form.to_dict().items()
-    new_recipe = {key: value for (key, value) in form_data if 'ingredients' not in key and 'method' not in key}
-    new_recipe['ingredients'] = [value for (key, value) in form_data if 'ingredients' in key]
-    new_recipe['method'] = [value for (key, value) in form_data if 'method' in key]
+    new_recipe = create_recipe_from_form(request.form)
     print(new_recipe)
     # mongo.db.recipes.insert_one(new_recipe)
     return redirect(url_for('get_recipes'))
@@ -43,6 +49,14 @@ def insert_recipe():
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     return render_template('editrecipe.html', recipe=the_recipe)
+
+
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+def update_recipe(recipe_id):
+    recipes = mongo.db.recipes
+    recipes.update({'_id': ObjectId(recipe_id)},
+                   create_recipe_from_form(request.form))
+    return redirect(url_for('get_recipes'))
 
 
 if __name__ == '__main__':

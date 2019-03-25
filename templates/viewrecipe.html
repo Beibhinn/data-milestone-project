@@ -14,13 +14,15 @@
                 <p>By <a href="#">{{recipe.user_name}}</a></p>
                 <p>Cuisine: <a href="#">{{recipe.cuisine_name}}</a></p>
                 <div>
-                    <h4>Ingredients</h4>
+                    <h6>Ingredients</h6>
+                    <ul>
                     {% for item in recipe.ingredients %}
-                    <ol>{{ item }}</ol>
+                    <li>{{ item }}</li>
                     {% endfor %}
+                    </ul>
                 </div>
                 <div>
-                    <h4>Method</h4>
+                    <h6>Method</h6>
                     <ol>
                         {% for list in recipe.method %}
                         <li>{{ list }}</li>
