@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="row">
+
+</div>
         <div class="row">
         {% for recipe in recipes %}
             <div class="col s12 m4">
@@ -23,6 +26,9 @@
               </div>
             </div>
         {% endfor %}
+        </div>
+        <div class="fixed-action-btn">
+            <a href="{{url_for('add_recipe')}}" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
         </div>
 {% endblock %}
 

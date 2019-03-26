@@ -24,7 +24,7 @@
             </div>
             <div class="input-field col s6">
                 <i class="material-icons prefix">restaurant</i>
-                <input id="cuisine_name" name="cuisine_name" type="text" required>
+                <input id="cuisine_name" name="cuisine_name" type="text" class="autocomplete" required>
                 <label for="cuisine_name">Cuisine Type</label>
             </div>
         </div>
@@ -69,6 +69,17 @@
 
 {% block scripts %}
 <script>
+    /*$(document).ready(function(){
+    $('cuisine_name').autocomplete({
+      data: {
+        "Italian": null,
+        "American": null,
+        "Alternative": 'https://placehold.it/250x250'
+      },
+    });
+  });*/
+
+
     let ingredientCount = 1;
     $("#add-ingred").on('click', function() {
         $('#ingred-list li:last').append(`<li><input name='ingredients[${ingredientCount++}]' class="materialize-textarea"></li>`);
