@@ -41,7 +41,7 @@ def add_recipe():
 def insert_recipe():
     new_recipe = create_recipe_from_form(request.form)
     print(new_recipe)
-    # mongo.db.recipes.insert_one(new_recipe)
+    mongo.db.recipes.insert_one(new_recipe)
     return redirect(url_for('get_recipes'))
 
 
@@ -56,6 +56,12 @@ def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     recipes.update({'_id': ObjectId(recipe_id)},
                    create_recipe_from_form(request.form))
+    return redirect(url_for('get_recipes'))
+
+
+@app.route('/delete_recipe/<recipe_id>')
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     return redirect(url_for('get_recipes'))
 
 
