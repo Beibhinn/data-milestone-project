@@ -78,6 +78,16 @@
       },
     });
   });*/
+    $(document).ready(function(){
+    $('cuisine_name').autocomplete({
+      data: {
+        "Italian": null,
+        "American": null,
+        "Alternative": 'https://placehold.it/250x250'
+      },
+    });
+  });
+
 
 
     let ingredientCount = 1;

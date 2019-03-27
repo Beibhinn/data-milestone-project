@@ -21,21 +21,34 @@ def create_recipe_from_form(form):
 @app.route('/')
 @app.route('/get_recipes')
 def get_recipes():
+    recipe_filter = {}
+
+    cuisine = request.args.get('cuisine_name')
+    if cuisine:
+        recipe_filter['cuisine_name'] = cuisine
+
+    user = request.args.get('user_name')
+    if user:
+        recipe_filter['user_name'] = user
+
+    tags = request.args.getlist('tag_name[]')
+    if tags:
+        recipe_filter['tag_name'] = {"$all": tags}
     return render_template("recipes.html",
-                            recipes = mongo.db.recipes.find(),
-                            cuisines = mongo.db.cuisine.find(),
-                            users = mongo.db.users.find(),
-                            tags = mongo.db.tags.find())
+                           recipes=mongo.db.recipes.find(recipe_filter),
+                           cuisines=mongo.db.cuisine.find(),
+                           users=mongo.db.users.find(),
+                           tags=mongo.db.tags.find())
 
 
-@app.route('/get_recipes_user/<user_name>')
+@app.route('/get_recipes/user/<user_name>')
 def user_recipes(user_name):
-    return render_template("recipes.html", recipes = mongo.db.recipes.find({"user_name": user_name}))
+    return render_template("recipes.html", recipes=mongo.db.recipes.find({"user_name": user_name}))
 
 
-@app.route('/get_recipes_cuisine/<cuisine_name>')
+@app.route('/get_recipes/cuisine/<cuisine_name>')
 def cuisine_recipes(cuisine_name):
-    return render_template("recipes.html", recipes = mongo.db.recipes.find({"cuisine_name": cuisine_name}))
+    return render_template("recipes.html", recipes=mongo.db.recipes.find({"cuisine_name": cuisine_name}))
 
 
 @app.route('/view_recipe/<recipe_id>')

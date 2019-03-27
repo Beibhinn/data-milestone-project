@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-    <form action="">
+    <form action="{{ url_for('get_recipes') }}" method="GET">
         <div class="input-field col s12 m6 l3">
-            <select>
+            <select name="cuisine_name">
                 <option value="" disabled selected>Choose your option</option>
                 {% for cuisine in cuisines %}
                 <option value="{{cuisine.cuisine_name}}">{{cuisine.cuisine_name}}</option>
@@ -12,7 +12,7 @@
             <label>Cuisine Select</label>
         </div>
         <div class="input-field col s12 m6 l3">
-            <select>
+            <select name="user_name">
                 <option value="" disabled selected>Choose your option</option>
                 {% for user in users %}
                 <option value="{{user.user_name}}">{{user.user_name}}</option>
@@ -21,7 +21,7 @@
             <label>User Select</label>
         </div>
         <div class="input-field col s12 m6 l3">
-            <select multiple>
+            <select multiple name="tag_name[]">
                 <option value="" disabled selected>Choose your option</option>
                 {% for tag in tags %}
                 <option value="{{tag.tag_name}}">{{tag.tag_name}}</option>
@@ -35,30 +35,34 @@
     </form>
 </div>
 <div class="row">
-    {% for recipe in recipes %}
-    <div class="col s12 m4">
-        <div class="card sticky-action">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="{{recipe.photo_src}}">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">{{recipe.title}}<i
-                        class="material-icons right">more_vert</i></span>
-                <p>By <a href="{{url_for('user_recipes', user_name=recipe.user_name)}}">{{recipe.user_name}}</a></p>
-            </div>
-            <div class="card-action">
-                <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">Full recipe</a>
-            </div>
-            <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">{{recipe.title}}<i
-                        class="material-icons right">close</i></span>
-                {% for item in recipe.ingredients %}
-                <p>{{ item }}</p>
-                {% endfor %}
+    {% if recipes.count() == 0 %}
+    <h3>No recipes found.</h3>
+    {% else %}
+        {% for recipe in recipes %}
+        <div class="col s12 m4">
+            <div class="card sticky-action">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="{{recipe.photo_src}}">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">{{recipe.title}}<i
+                            class="material-icons right">more_vert</i></span>
+                    <p>By <a href="{{url_for('user_recipes', user_name=recipe.user_name)}}">{{recipe.user_name}}</a></p>
+                </div>
+                <div class="card-action">
+                    <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">Full recipe</a>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{recipe.title}}<i
+                            class="material-icons right">close</i></span>
+                    {% for item in recipe.ingredients %}
+                    <p>{{ item }}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>
 <div class="fixed-action-btn">
     <a href="{{url_for('add_recipe')}}" class="btn-floating btn-large waves-effect waves-light green"><i
