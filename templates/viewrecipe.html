@@ -11,8 +11,8 @@
             </div>
             <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">{{recipe.title}}</span>
-                <p>By <a href="#">{{recipe.user_name}}</a></p>
-                <p>Cuisine: <a href="#">{{recipe.cuisine_name}}</a></p>
+                <p>By <a href="{{url_for('user_recipes', user_name=recipe.user_name)}}">{{recipe.user_name}}</a></p>
+                <p>Cuisine: <a href="{{url_for('cuisine_recipes', cuisine_name=recipe.cuisine_name)}}">{{recipe.cuisine_name}}</a></p>
                 <div>
                     <h6>Ingredients</h6>
                     <ul>

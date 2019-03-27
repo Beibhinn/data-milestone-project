@@ -21,9 +21,21 @@ def create_recipe_from_form(form):
 @app.route('/')
 @app.route('/get_recipes')
 def get_recipes():
-    my_recipe = mongo.db.recipes.find()
     return render_template("recipes.html",
-           recipes = mongo.db.recipes.find())
+                            recipes = mongo.db.recipes.find(),
+                            cuisines = mongo.db.cuisine.find(),
+                            users = mongo.db.users.find(),
+                            tags = mongo.db.tags.find())
+
+
+@app.route('/get_recipes_user/<user_name>')
+def user_recipes(user_name):
+    return render_template("recipes.html", recipes = mongo.db.recipes.find({"user_name": user_name}))
+
+
+@app.route('/get_recipes_cuisine/<cuisine_name>')
+def cuisine_recipes(cuisine_name):
+    return render_template("recipes.html", recipes = mongo.db.recipes.find({"cuisine_name": cuisine_name}))
 
 
 @app.route('/view_recipe/<recipe_id>')
