@@ -8,6 +8,23 @@
 </head>
 
 <body>
+
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="#">Link1</a></li>
+            <li><a href="#">Link2</a></li>
+            <li><a href="#">Link3</a></li>
+        </ul>
+        <div class="right">
+            <a class="waves-effect waves-light btn" href="#">Sign in</a>
+            <a class="waves-effect waves-light btn" href="{{ url_for('register') }}">Register</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     {% block content %} {% endblock %}
 </div>

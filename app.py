@@ -1,11 +1,13 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, send_from_directory
+from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import bcrypt
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'recipe-book'
 app.config["MONGO_URI"] = 'mongodb+srv://root:r00tUser@myfirstcluster-8j8nw.mongodb.net/recipe-book?retryWrites=true'
+app.secret_key = os.getenv("SECRET", "randomsecretstringsosecure123")
 
 mongo = PyMongo(app)
 
@@ -39,6 +41,23 @@ def get_recipes():
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
                            tags=mongo.db.tags.find())
+
+
+@app.route('/register', methods= ['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        users = mongo.db.users
+        existing_user = users.find_one({'user_name': request.form['user_name']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'user_name': request.form['user_name'], 'password': hashpass})
+            session['user_name'] = request.form['user_name']
+            return redirect(url_for('get_recipes'))
+
+        return 'That username is already in use. Please try another'
+
+    return render_template('register.html')
 
 
 @app.route('/get_recipes/user/<user_name>')

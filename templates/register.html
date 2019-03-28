@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12 m8 offset-m2">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Register as a new user</span>
+                <p>Sign up to upvote recipes you like, and to keep track of your favourite recipes!</p>
+                <form method=POST action="{{ url_for('register') }}">
+                    <div class="input-field col s6">
+                        <input id="user_name" name="user_name" type="text" class="validate">
+                        <label for="user_name">Username:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="password" name="password" type="text" class="validate">
+                        <label for="password">Password:</label>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit">Register
+                        <i class="material-icons right">person_add</i>
+                    </button>
+                </form>
+                <div class="card-action">
+                    Already have an account? <a href="#">Log in here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
