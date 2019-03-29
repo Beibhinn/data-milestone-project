@@ -94,7 +94,7 @@ def view_recipe(recipe_id):
 
 @app.route('/add_recipe')
 def add_recipe():
-    return render_template("addrecipe.html")
+    return render_template("addrecipe.html", cuisines=mongo.db.cuisine.find())
 
 
 @app.route('/insert_recipe', methods=["POST"])
