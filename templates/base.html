@@ -3,8 +3,9 @@
 
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
@@ -19,8 +20,12 @@
             <li><a href="#">Link3</a></li>
         </ul>
         <div class="right">
+        {% if 'username' in session %}
+            <a href="{{url_for('user_recipes', user_name=session['username'])}}">{{ session['username'] }}<i class="material-icons" style="display: inline-block">account_circle</i></a>
+        {% else %}
             <a class="waves-effect waves-light btn" href="{{ url_for('login') }}">Sign in</a>
             <a class="waves-effect waves-light btn" href="{{ url_for('register') }}">Register</a>
+        {% endif %}
         </div>
     </div>
 </nav>

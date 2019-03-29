@@ -40,7 +40,7 @@ def get_recipes():
                            recipes=mongo.db.recipes.find(recipe_filter),
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
-                           tags=mongo.db.tags.find())
+                           tags=mongo.db.tags.find(),)
 
 
 @app.route('/login', methods= ["POST", "GET"])
@@ -51,7 +51,7 @@ def login():
 
         if login_user:
             if bcrypt.hashpw(request.form['pass_word'].encode('utf-8'), login_user['password']) == login_user['password']:
-                session['user_name'] = request.form['user']
+                session['username'] = request.form['user']
                 return redirect(url_for('get_recipes'))
 
         return "Sorry, this username & password combination is invalid. Please try again or register as a new user"
@@ -68,7 +68,7 @@ def register():
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'user_name': request.form['user_name'], 'password': hashpass})
-            session['user_name'] = request.form['user_name']
+            session['username'] = request.form['user_name']
             return redirect(url_for('get_recipes'))
 
         return 'That username is already in use. Please try another'
