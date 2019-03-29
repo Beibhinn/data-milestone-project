@@ -43,7 +43,23 @@ def get_recipes():
                            tags=mongo.db.tags.find())
 
 
-@app.route('/register', methods= ['POST', 'GET'])
+@app.route('/login', methods= ["POST", "GET"])
+def login():
+    if request.method == 'POST':
+        users = mongo.db.users
+        login_user = users.find_one({'user_name': request.form['user']})
+
+        if login_user:
+            if bcrypt.hashpw(request.form['pass_word'].encode('utf-8'), login_user['password']) == login_user['password']:
+                session['user_name'] = request.form['user']
+                return redirect(url_for('get_recipes'))
+
+        return "Sorry, this username & password combination is invalid. Please try again or register as a new user"
+
+    return render_template('login.html')
+
+
+@app.route('/register', methods= ["POST", "GET"])
 def register():
     if request.method == 'POST':
         users = mongo.db.users
