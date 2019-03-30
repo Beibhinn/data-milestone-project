@@ -29,7 +29,16 @@
         </div>
     </div>
 </nav>
-
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flashes toast" style="position: initial">
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+        <i class="close material-icons">close</i>
+    </div>
+  {% endif %}
+{% endwith %}
 <div class="container">
     {% block content %} {% endblock %}
 </div>
@@ -54,6 +63,12 @@
             limit: Infinity,
             minLength: 1
         }
+    });
+    $('#add_new').click(function(){
+	    JSON.stringify(M.Chips.getInstance($('.chips')).chipsData);
+    });
+    $(".close").on('click', function () {
+        event.target.parentElement.remove()
     });
 
 </script>

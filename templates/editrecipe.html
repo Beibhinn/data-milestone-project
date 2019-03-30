@@ -94,8 +94,6 @@
     $("#add-method").on('click', function () {
         $('#method-list li:last').append(`<li><textarea name='method[${methodCount++}]' class="materialize-textarea"></textarea></li>`);
     });
-    $(".close").on('click', function () {
-        event.target.parentElement.remove()
-    })
+
 </script>
 {% endblock %}

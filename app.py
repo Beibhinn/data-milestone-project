@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory
+from flask import Flask, render_template, redirect, request, url_for, session, flash, send_from_directory
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import bcrypt
@@ -17,6 +17,7 @@ def create_recipe_from_form(form):
     recipe = {key: value for (key, value) in items if 'ingredients' not in key and 'method' not in key}
     recipe['ingredients'] = [value for (key, value) in items if 'ingredients' in key]
     recipe['method'] = [value for (key, value) in items if 'method' in key]
+    recipe['tag_name'] = [value for (key, value) in items if 'tag_name' in key]
     return recipe
 
 
@@ -54,7 +55,7 @@ def login():
                 session['username'] = request.form['user']
                 return redirect(url_for('get_recipes'))
 
-        return "Sorry, this username & password combination is invalid. Please try again or register as a new user"
+        flash("Sorry, this username & password combination is invalid. Please try again or register as a new user")
 
     return render_template('login.html')
 
@@ -71,7 +72,7 @@ def register():
             session['username'] = request.form['user_name']
             return redirect(url_for('get_recipes'))
 
-        return 'That username is already in use. Please try another'
+        flash('That username is already in use. Please try another')
 
     return render_template('register.html')
 

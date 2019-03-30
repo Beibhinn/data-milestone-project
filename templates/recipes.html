@@ -37,7 +37,7 @@
 </div>
 <div class="row">
     {% if recipes.count() == 0 %}
-    <h3>No recipes found.</h3>
+    <div class="toast" style="position: initial">No recipes found.<i class="close material-icons">close</i></div>
     {% else %}
     {% for recipe in recipes %}
     <div class="col s12 m4">
