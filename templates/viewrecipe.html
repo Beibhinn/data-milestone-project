@@ -82,12 +82,25 @@
         $("#like").toggleClass("fas").toggleClass("far");
     }
 
+    if($("#fav-input").attr('checked', true)) {
+        $("#favourite").addClass("fas").removeClass("far");
+    }
+
+    if($("#like-input").attr('checked', true)) {
+        $("#like").addClass("fas").removeClass("far");
+    }
+
+
     if ($("#favourite").hasClass("fas")) {
         $('#fav-input').prop('checked', true);
+    } else {
+        $('#fav-input').prop('checked', false);
     }
 
     if ($("#like").hasClass("fas")) {
-        $('input[name=like-input]').attr('checked', true);
+        $('#like-input').prop('checked', true);
+    } else {
+        $('#like-input').prop('checked', false);
     }
 
 
