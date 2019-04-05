@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% set is_signed_in = 'username' in session %}
+{% set is_owner = session['username'] == recipe.user_name %}
 {% block content %}
 <div class="row">
 
@@ -6,7 +8,7 @@
         <div class="card">
             <div class="card-image single-card">
                 <img src="{{recipe.photo_src}}">
-                {% if 'username' in session %}
+                {% if is_owner %}
                     <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
                        class="btn-floating halfway-fab waves-effect waves-light red"><i
                             class="material-icons">delete</i></a>
@@ -42,13 +44,13 @@
                 <a href="">
                     <div class="chip">
                         {{ tag }}
-                        {% if 'username' in session %}
+                        {% if is_owner %}
                             <i class="material-icons close">close</i>
                         {% endif %}
                     </div>
                 </a>
                 {% endfor %}
-                {% if 'username' in session %}
+                {% if is_signed_in and not is_owner %}
                 <div class="right">
                     <form id="preference-form" action="" method="">
                         <input type="checkbox" name="like-input" id="like-input" style="display:none"/> <label for="like-input"
