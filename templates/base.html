@@ -5,7 +5,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
@@ -49,11 +48,9 @@
     $(document).ready(function () {
         $('select').formSelect();
     });
-    $('.chips-placeholder').chips({
+    $('.input-recipe-tags').chips({
         placeholder: 'Enter a tag',
         secondaryPlaceholder: '+Tag',
-    });
-    $('.chips-autocomplete').chips({
         autocompleteOptions: {
             data: {
                 'Tag1': null,
@@ -64,8 +61,17 @@
             minLength: 1
         }
     });
-    $('#add_new').click(function(){
-	    JSON.stringify(M.Chips.getInstance($('.chips')).chipsData);
+    $('#add_new').click(function () {
+	    JSON.stringify(M.Chips.getInstance($('.input-recipe-tags')).chipsData);
+    });
+    $('#form').submit(function () {
+        let tags = M.Chips.getInstance($('.input-recipe-tags')).chipsData;
+        let input = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "tag_name")
+            .val(JSON.stringify(tags));
+        $(this).append(input);
+        return true;
     });
     $(".close").on('click', function () {
         event.target.parentElement.remove()

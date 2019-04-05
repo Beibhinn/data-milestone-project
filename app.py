@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, session, flash, send_from_directory
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import json
 import bcrypt
 
 app = Flask(__name__)
@@ -17,7 +18,7 @@ def create_recipe_from_form(form):
     recipe = {key: value for (key, value) in items if 'ingredients' not in key and 'method' not in key}
     recipe['ingredients'] = [value for (key, value) in items if 'ingredients' in key]
     recipe['method'] = [value for (key, value) in items if 'method' in key]
-    recipe['tag_name'] = [value for (key, value) in items if 'tag_name' in key]
+    recipe['tag_name'] = [item['tag'] for item in json.loads(form['tag_name'])]
     return recipe
 
 
@@ -60,7 +61,7 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/register', methods= ["POST", "GET"])
+@app.route('/register', methods=["POST", "GET"])
 def register():
     if request.method == 'POST':
         users = mongo.db.users
@@ -101,7 +102,6 @@ def add_recipe():
 @app.route('/insert_recipe', methods=["POST"])
 def insert_recipe():
     new_recipe = create_recipe_from_form(request.form)
-    print(new_recipe)
     mongo.db.recipes.insert_one(new_recipe)
     return redirect(url_for('get_recipes'))
 

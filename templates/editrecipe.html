@@ -60,7 +60,7 @@
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">label</i>
-                <div class="chips chips chips-placeholder chips-autocomplete">
+                <div class="input-recipe-tags">
                     {% for tag in recipe.tag_name %}
                     <div class="chip">
                         {{ tag }}
@@ -69,7 +69,7 @@
                         {% endif %}
                     </div>
                     {% endfor %}
-                    <input id="tag_name" name="tag_name">
+                    <input>
                 </div>
             </div>
         </div>
