@@ -3,18 +3,17 @@
 {% set is_owner = session['username'] == recipe.user_name %}
 {% block content %}
 <div class="row">
-
     <div class="col s12">
         <div class="card">
             <div class="card-image single-card">
                 <img src="{{recipe.photo_src}}">
                 {% if is_owner %}
-                    <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-                       class="btn-floating halfway-fab waves-effect waves-light red"><i
-                            class="material-icons">delete</i></a>
-                    <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-                       class="btn-floating halfway-fab waves-effect waves-light blue"><i
-                            class="material-icons">mode_edit</i></a>
+                <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                   class="btn-floating halfway-fab waves-effect waves-light red"><i
+                        class="material-icons">delete</i></a>
+                <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                   class="btn-floating halfway-fab waves-effect waves-light blue"><i
+                        class="material-icons">mode_edit</i></a>
                 {% endif %}
             </div>
             <div class="card-content">
@@ -45,25 +44,21 @@
                     <div class="chip">
                         {{ tag }}
                         {% if is_owner %}
-                            <i class="material-icons close">close</i>
+                        <i class="material-icons close">close</i>
                         {% endif %}
                     </div>
                 </a>
                 {% endfor %}
                 {% if is_signed_in and not is_owner %}
                 <div class="right">
-                    <form id="preference-form" action="" method="">
-                        <input type="checkbox" name="like-input" id="like-input" style="display:none"/> <label for="like-input"
-                                                                                          style="font-size:18pt"><i
-                            id="like"
-                            onclick="toggleLike()"
-                            class="far fa-thumbs-up"></i></label>
-                        <input type="checkbox" name="fav-input" id="fav-input" style="display:none"/> <label for="fav-input"
-                                                                                        style="font-size:18pt"><i
-                            id="favourite"
-                            onclick="toggleFav()"
-                            class="far fa-heart"></i></label>
-                    </form>
+                    <i style="font-size:18pt"
+                       id="like"
+                       onclick="toggleLike()"
+                       class="{{ 'fas' if is_liked else 'far' }} fa-thumbs-up"></i>
+                    <i style="font-size:18pt"
+                       id="favourite"
+                       onclick="toggleFav()"
+                       class="{{ 'fas' if is_favourite else 'far' }} fa-heart"></i>
                 </div>
                 {% endif %}
             </div>
@@ -77,32 +72,23 @@
 
 <script>
     function toggleFav() {
-        $("#favourite").toggleClass("fas").toggleClass("far");
+        const button =  $("#favourite");
+
+        button.toggleClass("fas").toggleClass("far");
+
+        $.post("{{url_for('set_recipe_favourited', recipe_id=recipe._id)}}", {
+            favourite: button.hasClass("fas")
+        });
     }
 
     function toggleLike() {
-        $("#like").toggleClass("fas").toggleClass("far");
-    }
+        const button =  $("#like");
 
-    if($("#fav-input").attr('checked', true)) {
-        $("#favourite").addClass("fas").removeClass("far");
-    }
+        button.toggleClass("fas").toggleClass("far");
 
-    if($("#like-input").attr('checked', true)) {
-        $("#like").addClass("fas").removeClass("far");
-    }
-
-
-    if ($("#favourite").hasClass("fas")) {
-        $('#fav-input').prop('checked', true);
-    } else {
-        $('#fav-input').prop('checked', false);
-    }
-
-    if ($("#like").hasClass("fas")) {
-        $('#like-input').prop('checked', true);
-    } else {
-        $('#like-input').prop('checked', false);
+        $.post("{{url_for('set_recipe_liked', recipe_id=recipe._id)}}", {
+            liked: button.hasClass("fas")
+        });
     }
 
 

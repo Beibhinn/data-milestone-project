@@ -45,7 +45,7 @@ def get_recipes():
                            tags=mongo.db.tags.find(),)
 
 
-@app.route('/login', methods= ["POST", "GET"])
+@app.route('/login', methods=["POST", "GET"])
 def login():
     if request.method == 'POST':
         users = mongo.db.users
@@ -53,7 +53,8 @@ def login():
 
         if login_user:
             if bcrypt.hashpw(request.form['pass_word'].encode('utf-8'), login_user['password']) == login_user['password']:
-                session['username'] = request.form['user']
+                session['username'] = login_user['user_name']
+                session['favourites'] = [str(objectId) for objectId in login_user['favourites']]
                 return redirect(url_for('get_recipes'))
 
         flash("Sorry, this username & password combination is invalid. Please try again or register as a new user")
@@ -71,6 +72,7 @@ def register():
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'user_name': request.form['user_name'], 'password': hashpass})
             session['username'] = request.form['user_name']
+            session['favourites'] = []
             return redirect(url_for('get_recipes'))
 
         flash('That username is already in use. Please try another')
@@ -90,8 +92,30 @@ def cuisine_recipes(cuisine_name):
 
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
-    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template('viewrecipe.html', recipe=the_recipe)
+    recipe_object_id = ObjectId(recipe_id)
+    the_recipe = mongo.db.recipes.find_one({"_id": recipe_object_id})
+    user = mongo.db.users.find_one({"user_name": session['username']})
+    return render_template('viewrecipe.html',
+                           recipe=the_recipe,
+                           is_favourite=recipe_object_id in user['favourites'],
+                           is_liked=session['username'] in the_recipe['likes'],
+                           likes_count=len(the_recipe['likes']))
+
+
+@app.route('/set_recipe_favourited/<recipe_id>', methods=["POST"])
+def set_recipe_favourited(recipe_id):
+    fav_selector = {"favourites": ObjectId(recipe_id)}
+    update_params = {'$push': fav_selector} if request.form['favourite'] == 'true' else {'$pull': fav_selector}
+    mongo.db.users.update_one({"user_name": session['username']}, update_params)
+    return app.response_class(status=200)
+
+
+@app.route('/set_recipe_liked/<recipe_id>', methods=["POST"])
+def set_recipe_liked(recipe_id):
+    like_selector = {"likes": session['username']}
+    update_params = {'$push': like_selector} if request.form['liked'] == 'true' else {'$pull': like_selector}
+    mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, update_params)
+    return app.response_class(status=200)
 
 
 @app.route('/add_recipe')
