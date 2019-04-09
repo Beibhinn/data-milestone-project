@@ -118,6 +118,16 @@ def set_recipe_liked(recipe_id):
     return app.response_class(status=200)
 
 
+@app.route('/user_account')
+def user_account():
+    recipes = mongo.db.recipes.find({"user_name": session['username']})
+    user = mongo.db.users.find_one({"user_name": session['username']}, {"favourites": 1})
+    favourites = mongo.db.recipes.find({"_id": {"$in": user['favourites']}})
+    return render_template('account.html',
+                           favourites=favourites,
+                           recipes=recipes)
+
+
 @app.route('/add_recipe')
 def add_recipe():
     return render_template("addrecipe.html", cuisines=mongo.db.cuisine.find())
