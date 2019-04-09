@@ -57,6 +57,7 @@
             </div>
             <div class="card-action">
                 <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">Full recipe</a>
+                <div class="right">{{ recipe.likes|length }} likes</div>
             </div>
             <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">{{recipe.title}}<i

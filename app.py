@@ -42,7 +42,7 @@ def get_recipes():
                            recipes=mongo.db.recipes.find(recipe_filter),
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
-                           tags=mongo.db.tags.find(),)
+                           tags=mongo.db.tags.find())
 
 
 @app.route('/login', methods=["POST", "GET"])
