@@ -39,6 +39,19 @@
             </button>
         </div>
     </form>
+    <div class="input-field col s10 m6">
+				<span class="right">
+					<label>Sort:</label>
+					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
+                            data-sort="name:asc">A-Z</button>
+					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
+                            data-sort="name:desc">Z-A</button>
+					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
+                            data-sort="myorder:asc"><i class="material-icons">arrow_upward</i></button>
+					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
+                            data-sort="myorder:desc"><i class="material-icons">arrow_downward</i></button>
+				</span>
+    </div>
 </div>
 <div class="row">
     {% if recipes.count() == 0 %}
