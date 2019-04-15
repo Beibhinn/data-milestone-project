@@ -40,7 +40,7 @@
             </div>
             <div class="card-action">
                 {% for tag in recipe.tag_name %}
-                <a href="">
+                <a href="{{url_for('tag_recipes', tag_name=tag)}}">
                     <div class="chip">
                         {{ tag }}
                         {% if is_owner %}

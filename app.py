@@ -90,6 +90,11 @@ def cuisine_recipes(cuisine_name):
     return render_template("recipes.html", recipes=mongo.db.recipes.find({"cuisine_name": cuisine_name}))
 
 
+@app.route('/get_recipes/tag/<tag_name>')
+def tag_recipes(tag_name):
+    return render_template("recipes.html", recipes=mongo.db.recipes.find({"tag_name": tag_name}))
+
+
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     recipe_object_id = ObjectId(recipe_id)
