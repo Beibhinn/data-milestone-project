@@ -69,15 +69,15 @@
 
 {% block scripts %}
 <script>
-    /*$(document).ready(function(){
-    $('cuisine_name').autocomplete({
+    $(document).ready(function(){
+    $('#cuisine_name').autocomplete({
       data: {
-        "Italian": null,
-        "American": null,
-        "Alternative": 'https://placehold.it/250x250'
+        {% for cuisine in cuisines %}
+            '{{ cuisine["cuisine_name"] }}': null,
+        {% endfor %}
       },
     });
-  });*/
+  });
 
 
     let ingredientCount = 1;
