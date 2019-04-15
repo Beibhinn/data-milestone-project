@@ -23,12 +23,27 @@ def create_recipe_from_form(form):
     return recipe
 
 
-def check_add_cuisine():
+def create_cuisine_if_not_already():
     cuisine = mongo.db.cuisine
     existing_cuisine = cuisine.find_one({'cuisine_name': request.form['cuisine_name']})
 
     if existing_cuisine is None:
         cuisine.insert_one({'cuisine_name': request.form['cuisine_name']})
+
+
+def create_tag_if_not_already():
+    tags = mongo.db.tags
+
+    # new_tags = []
+    # for tag_dict in json.loads(request.form['tag_name']):
+    #     tag = {'tag_name': tag_dict['tag']}
+    #     if not tags.find_one(tag):
+    #         new_tags.append(tag)
+    # tags.insert_many(new_tags)
+
+    tags.insert_many([{'tag_name': tag['tag']}
+                      for tag in json.loads(request.form['tag_name'])
+                      if not tags.find_one({'tag_name': tag['tag']})])
 
 
 @app.route('/')
@@ -144,14 +159,15 @@ def user_account():
 
 @app.route('/add_recipe')
 def add_recipe():
-    return render_template("addrecipe.html", cuisines=mongo.db.cuisine.find())
+    return render_template("addrecipe.html", cuisines=mongo.db.cuisine.find(), tags=mongo.db.tags.find())
 
 
 @app.route('/insert_recipe', methods=["POST"])
 def insert_recipe():
     new_recipe = create_recipe_from_form(request.form)
     mongo.db.recipes.insert_one(new_recipe)
-    check_add_cuisine()
+    create_cuisine_if_not_already()
+    create_tag_if_not_already()
     return redirect(url_for('get_recipes'))
 
 
