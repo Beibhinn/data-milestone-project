@@ -79,9 +79,9 @@
         secondaryPlaceholder: '+Tag',
         autocompleteOptions: {
             data: {
-                'Tag1': null,
-                'Tag2': null,
-                'Tag3': null
+            {% for tag in tags %}
+                '{{ tag["tag_name"] }}': null,
+            {% endfor %}
             },
             limit: Infinity,
             minLength: 1
