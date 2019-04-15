@@ -19,7 +19,16 @@ def create_recipe_from_form(form):
     recipe['ingredients'] = [value for (key, value) in items if 'ingredients' in key]
     recipe['method'] = [value for (key, value) in items if 'method' in key]
     recipe['tag_name'] = [item['tag'] for item in json.loads(form['tag_name'])]
+    recipe['likes'] = []
     return recipe
+
+
+def check_add_cuisine():
+    cuisine = mongo.db.cuisine
+    existing_cuisine = cuisine.find_one({'cuisine_name': request.form['cuisine_name']})
+
+    if existing_cuisine is None:
+        cuisine.insert_one({'cuisine_name': request.form['cuisine_name']})
 
 
 @app.route('/')
@@ -142,6 +151,7 @@ def add_recipe():
 def insert_recipe():
     new_recipe = create_recipe_from_form(request.form)
     mongo.db.recipes.insert_one(new_recipe)
+    check_add_cuisine()
     return redirect(url_for('get_recipes'))
 
 

@@ -43,9 +43,6 @@
                 <a href="{{url_for('tag_recipes', tag_name=tag)}}">
                     <div class="chip">
                         {{ tag }}
-                        {% if is_owner %}
-                        <i class="material-icons close">close</i>
-                        {% endif %}
                     </div>
                 </a>
                 {% endfor %}
