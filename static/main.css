@@ -1,0 +1,36 @@
+nav,
+.page-footer {
+  background-color: #c65b7c;
+}
+
+img.activator {
+  height: 280px;
+}
+
+div.card-content {
+  height: 150px;
+  vertical-align: middle;
+}
+
+div.card-action {
+  padding-bottom: 20px;
+}
+
+.card span.card-title {
+  font-size: 22px;
+}
+
+button.sort {
+  background-color: #f9ada0;
+}
+
+button.sort:hover {
+  background-color: #f9627d;
+  color: #f9ada0;
+}
+
+.add {
+  background-color: #83b692;
+}
+
+/*# sourceMappingURL=main.css.map */
