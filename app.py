@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, session, flash, send_from_directory
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
 import json
 import bcrypt
@@ -62,8 +62,23 @@ def get_recipes():
     tags = request.args.getlist('tag_name[]')
     if tags:
         recipe_filter['tag_name'] = {"$all": tags}
+
+    recipes = mongo.db.recipes.find(recipe_filter)
+
+    sort_by = request.args.get('sort')
+    if sort_by:
+        sort_order = request.args.get('order')
+        if sort_by == 'likes':
+            # Likes have to be sorted by us because PyMongo won't let us
+            # sort by array length (unless we use aggregation).
+            recipes = sorted(recipes,
+                             key=lambda recipe: len(recipe['likes']),
+                             reverse=sort_order == 'desc')
+        else:
+            recipes = recipes.sort(sort_by, DESCENDING if sort_order == 'desc' else ASCENDING)
+
     return render_template("recipes.html",
-                           recipes=mongo.db.recipes.find(recipe_filter),
+                           recipes=list(recipes),
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
                            tags=mongo.db.tags.find())

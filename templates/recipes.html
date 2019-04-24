@@ -44,18 +44,18 @@
 				<span class="right">
 					<label>Sort:</label>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
-                            data-sort="name:asc">A-Z</button>
+                            onclick="sort('title','asc')">A-Z</button>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
-                            data-sort="name:desc">Z-A</button>
+                            onclick="sort('title','desc')">Z-A</button>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
-                            data-sort="myorder:asc"><i class="material-icons">arrow_upward</i></button>
+                            onclick="sort('likes','asc')"><i class="material-icons">arrow_upward</i></button>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
-                            data-sort="myorder:desc"><i class="material-icons">arrow_downward</i></button>
+                            onclick="sort('likes','desc')"><i class="material-icons">arrow_downward</i></button>
 				</span>
     </div>
 </div>
 <div class="row">
-    {% if recipes.count() == 0 %}
+    {% if recipes|length == 0 %}
     <div class="toast" style="position: initial">No recipes found.<i class="close material-icons">close</i></div>
     {% else %}
     {% for recipe in recipes %}
@@ -89,6 +89,18 @@
     <a href="{{url_for('add_recipe')}}" class="btn-floating btn-large waves-effect waves-light add"><i
             class="material-icons">add</i></a>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+function sort(by, order) {
+    if ('URLSearchParams' in window) { // https://stackoverflow.com/a/41542008
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('sort', by);
+        searchParams.set('order', order);
+        window.location.search = searchParams.toString();
+    }
+}
+</script>
 {% endblock %}
 
 
