@@ -3,8 +3,13 @@ nav,
   background-color: #c65b7c;
 }
 
+.nav-right {
+  padding-right: 10px;
+}
+
 img.activator {
   height: 280px;
+  object-fit: cover;
 }
 
 div.card-content {
@@ -20,8 +25,13 @@ div.card-action {
   font-size: 22px;
 }
 
+#filter-container,
+#filter-form {
+  padding-top: 10px;
+}
+
 button.sort {
-  background-color: #f9ada0;
+  background-color: #f9ada0 !important;
 }
 
 button.sort:hover {

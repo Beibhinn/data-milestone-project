@@ -17,10 +17,15 @@ nav,
   background-color : $purpley-pink;
 }
 
+.nav-right {
+  padding-right: 10px;
+}
+
 //---------------------------------------cards
 
 img.activator {
   height: 280px;
+  object-fit: cover;
 }
 
 div.card-content {
@@ -38,16 +43,19 @@ div.card-action {
 
 //----------------------------------------recipes.html
 
+#filter-container,
+#filter-form {
+  padding-top: 10px;
+}
+
 button.sort {
-  background-color: $light-pink;
+  background-color: $light-pink !important;
 }
 
 button.sort:hover {
   background-color: $bright-pink;
   color: $light-pink;
 }
-
-
 
 .add {
   background-color: $green;

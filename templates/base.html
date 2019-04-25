@@ -19,7 +19,7 @@
             <li><a href="#">Link2</a></li>
             <li><a href="#">Link3</a></li>
         </ul>
-        <div class="right">
+        <div class="right nav-right">
             {% if 'username' in session %}
             <a href="{{url_for('user_account', user_name=session['username'])}}">{{ session['username'] }}<i
                     class="material-icons" style="display: inline-block">account_circle</i></a>

@@ -1,47 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
-        <button class="btn waves-effect btn-flat grey-text text-darken-1" id="filter">
-            <i class="material-icons">filter_list</i> Filters:</button>
-        <form id="filter-form" action="{{ url_for('get_recipes') }}" method="GET">
-            <div class="input-field col s12 m6 l3">
-                <select name="cuisine_name">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% for cuisine in cuisines %}
-                    <option value="{{cuisine.cuisine_name}}">{{cuisine.cuisine_name}}</option>
-                    {% endfor %}}
-                </select>
-                <label>Cuisine Select</label>
-            </div>
-            <div class="input-field col s12 m6 l3">
-                <select name="user_name">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% for user in users %}
-                    <option value="{{user.user_name}}">{{user.user_name}}</option>
-                    {% endfor %}}
-                </select>
-                <label>User Select</label>
-            </div>
-            <div class="input-field col s12 m6 l3">
-                <select multiple name="tag_name[]">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% for tag in tags %}
-                    <option value="{{tag.tag_name}}">{{tag.tag_name}}</option>
-                    {% endfor %}}
-                </select>
-                <label>Tag Multiple Select</label>
-            </div>
-            <div class="col s12 m6 l3">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Filter
-                    <i class="material-icons right">filter_list</i>
-                </button>
-                <button class="btn waves-effect waves-light" type="reset" name="action">Clear
-                    <i class="material-icons right">clear</i>
-                </button>
-            </div>
-        </form>
-    <div class="input-field right col s10 m6">
-				<span class="right">
+<div id="filter-container" class="row">
+    <span>
+        <label>Filters:</label>
+        <button class="sort btn btn-floating waves-effect btn-flat " id="filter">
+            <i class="material-icons">filter_list</i></button>
+    </span>
+
+    <span class="right">
 					<label>Sort:</label>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
                             onclick="sort('title','asc')">A-Z</button>
@@ -52,7 +18,43 @@
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
                             onclick="sort('likes','desc')"><i class="material-icons">arrow_downward</i></button>
 				</span>
-    </div>
+    <form id="filter-form" action="{{ url_for('get_recipes') }}" method="GET" style="display: none">
+        <div class="input-field col s12 m6 l3">
+            <select name="cuisine_name">
+                <option value="" disabled selected>Choose your option</option>
+                {% for cuisine in cuisines %}
+                <option value="{{cuisine.cuisine_name}}">{{cuisine.cuisine_name}}</option>
+                {% endfor %}}
+            </select>
+            <label>Cuisine Select</label>
+        </div>
+        <div class="input-field col s12 m6 l3">
+            <select name="user_name">
+                <option value="" disabled selected>Choose your option</option>
+                {% for user in users %}
+                <option value="{{user.user_name}}">{{user.user_name}}</option>
+                {% endfor %}}
+            </select>
+            <label>User Select</label>
+        </div>
+        <div class="input-field col s12 m6 l3">
+            <select multiple name="tag_name[]">
+                <option value="" disabled selected>Choose your option</option>
+                {% for tag in tags %}
+                <option value="{{tag.tag_name}}">{{tag.tag_name}}</option>
+                {% endfor %}}
+            </select>
+            <label>Tag Multiple Select</label>
+        </div>
+        <div class="col s12 m6 l3">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Filter
+                <i class="material-icons right">filter_list</i>
+            </button>
+            <button class="btn waves-effect waves-light" type="reset" name="action">Clear
+                <i class="material-icons right">clear</i>
+            </button>
+        </div>
+    </form>
 </div>
 <div class="row">
     {% if recipes|length == 0 %}
@@ -92,14 +94,19 @@
 {% endblock %}
 {% block scripts %}
 <script>
-function sort(by, order) {
-    if ('URLSearchParams' in window) { // https://stackoverflow.com/a/41542008
-        let searchParams = new URLSearchParams(window.location.search);
-        searchParams.set('sort', by);
-        searchParams.set('order', order);
-        window.location.search = searchParams.toString();
+    $("#filter").click(function() {
+        $("#filter-form").slideToggle()
+    });
+
+
+    function sort(by, order) {
+        if ('URLSearchParams' in window) { // https://stackoverflow.com/a/41542008
+            let searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('sort', by);
+            searchParams.set('order', order);
+            window.location.search = searchParams.toString();
+        }
     }
-}
 </script>
 {% endblock %}
 
