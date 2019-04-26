@@ -42,7 +42,7 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">description</i>
                 <ol id="method-list">
-                    <li><input name="method[0]" id="method" class="materialize-textarea" required></li>
+                    <li><textarea name="method[0]" id="method" class="materialize-textarea" required></textarea></li>
                     <a class="btn-floating btn-small waves-effect waves-light blue" id="add-method"><i class="material-icons">add</i></a>
                 </ol>
                 <label for="method">Method</label>
@@ -86,7 +86,7 @@
     });
     let methodCount = 1;
     $("#add-method").on('click', function() {
-        $('#method-list li:last').append(`<li><input name='method[${methodCount++}]' class="materialize-textarea"></li>`);
+        $('#method-list li:last').append(`<li><textarea name='method[${methodCount++}]' class="materialize-textarea"></textarea></li>`);
     });
 </script>
 {% endblock %}
