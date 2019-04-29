@@ -92,6 +92,15 @@
     {% endfor %}
     {% endif %}
 </div>
+<div class="center">
+    <ul class="pagination">
+        <li class="waves-effect"><a href="#" onclick="decrement_page();"><i class="material-icons">chevron_left</i></a></li>
+        {% for i in range(num_pages) %}
+        <li class="waves-effect"><a href="#" onclick="go_to_page({{ loop.index }});">{{ loop.index }}</a></li>
+        {% endfor %}
+        <li class="waves-effect"><a href="#" onclick="increment_page();"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+</div>
 <div class="fixed-action-btn">
     <a href="{{url_for('add_recipe')}}" class="btn-floating btn-large waves-effect waves-light add"><i
             class="material-icons">add</i></a>
@@ -106,12 +115,68 @@
 
     function sort(by, order) {
         if ('URLSearchParams' in window) { // https://stackoverflow.com/a/41542008
-            let searchParams = new URLSearchParams(window.location.search);
+            const searchParams = new URLSearchParams(window.location.search);
             searchParams.set('sort', by);
             searchParams.set('order', order);
             window.location.search = searchParams.toString();
         }
     }
+
+    function go_to_page(page_number) {
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('page', page_number);
+            window.location.search = searchParams.toString();
+        }
+    }
+
+    function increment_page() {
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search);
+            const currentPage = parseInt(searchParams.get('page') || 1);
+            if (currentPage >= {{ num_pages }}) {
+                return;
+            }
+            searchParams.set('page', currentPage + 1);
+            window.location.search = searchParams.toString();
+        }
+    }
+
+    function decrement_page() {
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search);
+            const currentPage = parseInt(searchParams.get('page') || 2);
+            if (currentPage <= 1) {
+                return;
+            }
+            searchParams.set('page', currentPage - 1);
+            window.location.search = searchParams.toString();
+        }
+    }
+
+    $(document).ready(function() {
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search);
+            const page = searchParams.get('page') || 1;
+            if (page) {
+                const pagination = $('.pagination').children();
+                pagination.eq(page)
+                    .addClass('active')
+                    .removeClass('waves-effect');
+                if (page <= 1) {
+                    pagination.first()
+                        .addClass('disabled')
+                        .removeClass('waves-effect')
+                        .off("click");
+                } else if (page >= {{ num_pages }}) {
+                    pagination.last()
+                        .addClass('disabled')
+                        .removeClass('waves-effect')
+                        .off("click");
+                }
+            }
+        }
+    });
 </script>
 {% endblock %}
 

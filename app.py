@@ -1,4 +1,6 @@
 import os
+
+import math
 from flask import Flask, render_template, redirect, request, url_for, session, flash, send_from_directory
 from flask_pymongo import PyMongo, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
@@ -46,6 +48,9 @@ def create_tag_if_not_already():
                       if not tags.find_one({'tag_name': tag['tag']})])
 
 
+RECIPES_PER_PAGE = 3
+
+
 @app.route('/')
 @app.route('/get_recipes')
 def get_recipes():
@@ -77,11 +82,18 @@ def get_recipes():
         else:
             recipes = recipes.sort(sort_by, DESCENDING if sort_order == 'desc' else ASCENDING)
 
+    num_pages = math.ceil(recipes.count() / RECIPES_PER_PAGE)
+
+    page = request.args.get('page')
+    if page:
+        recipes.skip(RECIPES_PER_PAGE * (int(page)-1))
+
     return render_template("recipes.html",
-                           recipes=list(recipes),
+                           recipes=list(recipes.limit(RECIPES_PER_PAGE)),
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
-                           tags=mongo.db.tags.find())
+                           tags=mongo.db.tags.find(),
+                           num_pages=num_pages)
 
 
 @app.route('/top_recipes')
