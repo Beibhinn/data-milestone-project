@@ -57,6 +57,11 @@
     </form>
 </div>
 <div class="row">
+    <span class="right">
+        <p class="grey-text"> Results: {{ recipes|length }}</p>
+    </span>
+</div>
+<div class="row">
     {% if recipes|length == 0 %}
     <div class="toast" style="position: initial">No recipes found.<i class="close material-icons">close</i></div>
     {% else %}
