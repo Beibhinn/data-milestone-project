@@ -84,6 +84,12 @@ def get_recipes():
                            tags=mongo.db.tags.find())
 
 
+@app.route('/top_recipes')
+def top_recipes():
+    recipes = mongo.db.recipes.find().sort('likes', DESCENDING).limit(10)
+    return render_template("toprecipes.html", recipes= recipes)
+
+
 @app.route('/login', methods=["POST", "GET"])
 def login():
     if request.method == 'POST':

@@ -12,11 +12,11 @@
 
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Logo</a>
+        <a href="#" class="brand-logo center">For Cook's Sake</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ url_for('add_recipe') }}">Add new Recipe</a></li>
-            <li><a href="#">Link2</a></li>
+            <li><a href="{{ url_for('top_recipes') }}">Top Recipes</a></li>
             <li><a href="#">Link3</a></li>
         </ul>
         <div class="right nav-right">
@@ -62,7 +62,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © For Cooks Sake
+            © For Cook's Sake
             <a class="grey-text text-lighten-4 right" href="#!">Source code on GitHub. Deployed on Heroku</a>
         </div>
     </div>
