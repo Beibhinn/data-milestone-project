@@ -86,8 +86,8 @@ def get_recipes():
 
 @app.route('/top_recipes')
 def top_recipes():
-    recipes = mongo.db.recipes.find().sort('likes', DESCENDING).limit(10)
-    return render_template("toprecipes.html", recipes= recipes)
+    recipes = mongo.db.recipes.find({'likes': {'$ne': []}}).sort('likes', DESCENDING).limit(10)
+    return render_template("toprecipes.html", recipes=list(recipes))
 
 
 @app.route('/login', methods=["POST", "GET"])
