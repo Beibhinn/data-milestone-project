@@ -22,6 +22,7 @@ def create_recipe_from_form(form):
     recipe['method'] = [value for (key, value) in items if 'method' in key]
     recipe['tag_name'] = [item['tag'] for item in json.loads(form['tag_name'])]
     recipe['likes'] = []
+    recipe['meal_type'] = form.getlist('meal-type')
     return recipe
 
 
@@ -43,8 +44,12 @@ def create_tag_if_not_already():
     #         new_tags.append(tag)
     # tags.insert_many(new_tags)
 
+    recipe_tags = json.loads(request.form['tag_name'])
+    if not recipe_tags:
+        return
+
     tags.insert_many([{'tag_name': tag['tag']}
-                      for tag in json.loads(request.form['tag_name'])
+                      for tag in recipe_tags
                       if not tags.find_one({'tag_name': tag['tag']})])
 
 
@@ -195,6 +200,19 @@ def user_account():
     return render_template('account.html',
                            favourites=favourites,
                            recipes=recipes)
+
+
+@app.route('/meal_type')
+def meal_type():
+    breakfast = mongo.db.recipes.find({"meal_type": "Breakfast"})
+    lunch = mongo.db.recipes.find({"meal_type": "Lunch"})
+    dinner = mongo.db.recipes.find({"meal_type": "Dinner"})
+    other = mongo.db.recipes.find({"meal_type": "Other"})
+    return render_template('mealview.html',
+                           breakfast=breakfast,
+                           lunch=lunch,
+                           dinner=dinner,
+                           other=other)
 
 
 @app.route('/add_recipe')

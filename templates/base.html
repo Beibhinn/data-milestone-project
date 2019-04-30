@@ -12,12 +12,12 @@
 
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">For Cook's Sake</a>
+        <a href="{{ url_for('get_recipes') }}" class="brand-logo center">For Cook's Sake</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ url_for('add_recipe') }}">Add new Recipe</a></li>
             <li><a href="{{ url_for('top_recipes') }}">Top Recipes</a></li>
-            <li><a href="#">Link3</a></li>
+            <li><a href="{{ url_for('meal_type')}}">Browse by meal</a></li>
         </ul>
         <div class="right nav-right">
             {% if 'username' in session %}
@@ -75,6 +75,7 @@
 <script>
     $(document).ready(function () {
         $('select').formSelect();
+        $('.sidenav').sidenav();
     });
     $('.input-recipe-tags').chips({
         placeholder: 'Enter a tag',

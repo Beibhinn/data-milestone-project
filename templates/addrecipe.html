@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Add a Recipe</h3>
+<div class="row">
+    <h3 class="header grey-text center">Add a Recipe</h3>
+</div>
 <div class="row">
     <form id="form" action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
         <div class="row">
@@ -17,7 +19,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <i class="material-icons prefix">person</i>
                 {% if 'username' in session %}
                 <input id="user_name" name="user_name" type="text" value="{{ session['username'] }}" required>
@@ -26,10 +28,21 @@
                 {% endif %}
                 <label for="user_name">User</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <i class="material-icons prefix">restaurant</i>
                 <input id="cuisine_name" name="cuisine_name" type="text" class="autocomplete" required>
                 <label for="cuisine_name">Cuisine Type</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">local_dining</i>
+                <select name="meal-type" id="meal_type" multiple>
+                    <option value="" disabled selected> Choose your option</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label for="meal_type">Meal Type</label>
             </div>
         </div>
         <div class="row">
