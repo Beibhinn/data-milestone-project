@@ -137,6 +137,13 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('You have been successfully signed out')
+    return redirect(url_for('get_recipes'))
+
+
 @app.route('/get_recipes/user/<user_name>')
 def user_recipes(user_name):
     return render_template("recipes.html", recipes=mongo.db.recipes.find({"user_name": user_name}))
