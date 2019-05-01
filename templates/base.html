@@ -48,15 +48,16 @@
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">This project is designed for users to store their own recipes and discover new ones</p>
+                <h5 class="white-text">Website Purpose</h5>
+                <p class="grey-text text-lighten-4">This website is designed for users to store their own recipes and discover new ones.<br>
+                Create an account to easily store and view your own recipes, and to save other user's recipes as favourites.</p>
             </div>
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('add_recipe') }}">Add new Recipe</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('top_recipes') }}">Top Recipes</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('meal_type')}}">Browse by meal</a></li>
                 </ul>
             </div>
         </div>
