@@ -74,6 +74,7 @@ def get_recipes():
         recipe_filter['tag_name'] = {"$all": tags}
 
     recipes = mongo.db.recipes.find(recipe_filter)
+    total_recipes = recipes.count()
 
     sort_by = request.args.get('sort')
     if sort_by:
@@ -98,7 +99,8 @@ def get_recipes():
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
                            tags=mongo.db.tags.find(),
-                           num_pages=num_pages)
+                           num_pages=num_pages,
+                           total=total_recipes)
 
 
 @app.route('/top_recipes')
