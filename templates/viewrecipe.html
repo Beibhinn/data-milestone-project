@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <h6>Method</h6>
-                    <ol>
+                    <ol class="method">
                         {% for list in recipe.method %}
                         <li>{{ list }}</li>
                         {% endfor %}
@@ -39,15 +39,15 @@
                 </div>
             </div>
             <div class="card-action">
+                <div class="row">
                 {% for tag in recipe.tag_name %}
-                <a href="{{url_for('tag_recipes', tag_name=tag)}}">
+
                     <div class="chip">
-                        {{ tag }}
+                        <a href="{{url_for('tag_recipes', tag_name=tag)}}">{{ tag }}</a>
                     </div>
-                </a>
                 {% endfor %}
                 {% if is_signed_in and not is_owner %}
-                <div class="right">
+                <div class="right" style="display: inline-block">
                     <i style="font-size:18pt"
                        id="like"
                        onclick="toggleLike()"
@@ -58,6 +58,7 @@
                        class="{{ 'fas' if is_favourite else 'far' }} fa-heart"></i>
                 </div>
                 {% endif %}
+                    </div>
             </div>
         </div>
     </div>

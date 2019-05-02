@@ -68,24 +68,26 @@
     {% for recipe in recipes %}
     <div class="col s12 m4">
         <div class="card sticky-action">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="{{recipe.photo_src}}">
+            <div class="card-image small-card-image waves-effect waves-block waves-light">
+                <img class="activator small-activator" src="{{recipe.photo_src}}">
             </div>
-            <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{recipe.title}}<i
+            <div class="card-content small-card-content">
+                    <span class="card-title small-card-title activator grey-text text-darken-4">{{recipe.title}}<i
                             class="material-icons right">more_vert</i></span>
                 <p>By <a href="{{url_for('user_recipes', user_name=recipe.user_name)}}">{{recipe.user_name}}</a></p>
             </div>
-            <div class="card-action">
+            <div class="card-action small-card-action">
                 <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}" class="link">Full recipe</a>
                 <div class="right">{{ recipe.likes|length }} likes</div>
             </div>
             <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">{{recipe.title}}<i
                             class="material-icons right">close</i></span>
+                <div class="ingred-preview">
                 {% for item in recipe.ingredients %}
-                <p>{{ item }}</p>
+                    <p>{{ item }}</p>
                 {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -168,7 +170,8 @@
                         .addClass('disabled')
                         .removeClass('waves-effect')
                         .off("click");
-                } else if (page >= {{ num_pages }}) {
+                }
+                if (page >= {{ num_pages }}) {
                     pagination.last()
                         .addClass('disabled')
                         .removeClass('waves-effect')

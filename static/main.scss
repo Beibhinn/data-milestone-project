@@ -23,21 +23,21 @@ nav,
 
 //---------------------------------------cards
 
-img.activator {
+img.small-activator {
   height: 280px;
   object-fit: cover;
 }
 
-div.card-content {
+div.small-card-content {
   height: 150px;
   vertical-align: middle;
 }
 
-div.card-action {
+div.small-card-action {
   padding-bottom : 20px;
 }
 
-.card span.card-title {
+.card span.small-card-title {
   font-size: 22px;
 }
 
@@ -58,5 +58,24 @@ button.sort:hover {
 }
 
 .add {
-  background-color: $green;
+  background-color: $greeny-blue;
+}
+
+//----------------------------------------viewrecipe.html
+
+.method {
+  padding-left: 24px;
+}
+
+.chip {
+  display: inline-block;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  margin-right: 0;
+  color: $primary-color;
+}
+
+.ingred-preview {
+  margin-bottom: 70px;
 }
