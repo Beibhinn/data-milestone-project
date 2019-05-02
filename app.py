@@ -14,6 +14,8 @@ app.secret_key = os.getenv("SECRET", "randomsecretstringsosecure123")
 
 mongo = PyMongo(app)
 
+RECIPES_PER_PAGE = 3
+
 
 def create_recipe_from_form(form):
     items = form.to_dict().items()
@@ -53,7 +55,17 @@ def create_tag_if_not_already():
                       if not tags.find_one({'tag_name': tag['tag']})])
 
 
-RECIPES_PER_PAGE = 3
+def find_list_of_recipes(mongo_filter, page):
+    if not page:
+        page = 1
+    # Get one page of recipes matching the filter
+    recipes = mongo.db.recipes.find(mongo_filter)
+    total_recipes = recipes.count()
+    return list(recipes
+                .skip((int(page) - 1) * RECIPES_PER_PAGE)
+                .limit(RECIPES_PER_PAGE)), \
+            math.ceil(total_recipes / RECIPES_PER_PAGE), \
+            total_recipes
 
 
 @app.route('/')
@@ -92,7 +104,7 @@ def get_recipes():
 
     page = request.args.get('page')
     if page:
-        recipes.skip(RECIPES_PER_PAGE * (int(page)-1))
+        recipes.skip(RECIPES_PER_PAGE * (int(page) - 1))
 
     return render_template("recipes.html",
                            recipes=list(recipes.limit(RECIPES_PER_PAGE)),
@@ -153,17 +165,20 @@ def logout():
 
 @app.route('/get_recipes/user/<user_name>')
 def user_recipes(user_name):
-    return render_template("recipes.html", recipes=mongo.db.recipes.find({"user_name": user_name}))
+    recipes, pages, total = find_list_of_recipes({"user_name": user_name}, request.args.get('page'))
+    return render_template("recipes.html", recipes=recipes, num_pages=pages, total=total)
 
 
 @app.route('/get_recipes/cuisine/<cuisine_name>')
 def cuisine_recipes(cuisine_name):
-    return render_template("recipes.html", recipes=mongo.db.recipes.find({"cuisine_name": cuisine_name}))
+    recipes, pages, total = find_list_of_recipes({"cuisine_name": cuisine_name}, request.args.get('page'))
+    return render_template("recipes.html", recipes=recipes, num_pages=pages, total=total)
 
 
 @app.route('/get_recipes/tag/<tag_name>')
 def tag_recipes(tag_name):
-    return render_template("recipes.html", recipes=mongo.db.recipes.find({"tag_name": tag_name}))
+    recipes, pages, total = find_list_of_recipes({"tag_name": tag_name}, request.args.get('page'))
+    return render_template("recipes.html", recipes=recipes, num_pages=pages, total=total)
 
 
 @app.route('/view_recipe/<recipe_id>')
