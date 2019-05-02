@@ -17,15 +17,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <i class="material-icons prefix">person</i>
                 <input id="user_name" name="user_name" type="text" value="{{recipe.user_name}}" required>
                 <label for="user_name">User</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <i class="material-icons prefix">restaurant</i>
                 <input id="cuisine_name" name="cuisine_name" type="text" value="{{recipe.cuisine_name}}" required>
                 <label for="cuisine_name">Cuisine Type</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">local_dining</i>
+                <select name="meal-type" id="meal_type" multiple>
+                    <option value="" disabled selected> Choose your option</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label for="meal_type">Meal Type</label>
             </div>
         </div>
         <div class="row">
@@ -94,6 +105,19 @@
     $("#add-method").on('click', function () {
         $('#method-list li:last').append(`<li><textarea name='method[${methodCount++}]' class="materialize-textarea"></textarea></li>`);
     });
+
+    $(document).ready(function() {
+        const selected_types = [
+        {% for type in recipe.meal_types %}
+            '{{ type }}',
+        {% endfor %}
+        ];
+        $('#meal_type').children().each(function () {
+            if (selected_types.indexOf(this.getAttribute('value')) >= 0 ) {
+                this.addClass('selected')
+            }
+        })
+    })
 
 </script>
 {% endblock %}

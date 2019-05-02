@@ -170,11 +170,11 @@ def tag_recipes(tag_name):
 def view_recipe(recipe_id):
     recipe_object_id = ObjectId(recipe_id)
     the_recipe = mongo.db.recipes.find_one({"_id": recipe_object_id})
-    user = mongo.db.users.find_one({"user_name": session['username']})
+    user = mongo.db.users.find_one({"user_name": session['username']}) if 'username' in session else None
     return render_template('viewrecipe.html',
                            recipe=the_recipe,
-                           is_favourite=recipe_object_id in user['favourites'],
-                           is_liked=session['username'] in the_recipe['likes'],
+                           is_favourite=recipe_object_id in user['favourites'] if user else False,
+                           is_liked=session['username'] in the_recipe['likes'] if user else False,
                            likes_count=len(the_recipe['likes']))
 
 
