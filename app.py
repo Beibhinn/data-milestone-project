@@ -14,7 +14,7 @@ app.secret_key = os.getenv("SECRET", "randomsecretstringsosecure123")
 
 mongo = PyMongo(app)
 
-RECIPES_PER_PAGE = 3
+RECIPES_PER_PAGE = 12
 
 
 def create_recipe_from_form(form):
