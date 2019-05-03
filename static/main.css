@@ -25,6 +25,19 @@ div.small-card-action {
   font-size: 22px;
 }
 
+.account {
+  padding-right: 7px;
+}
+
+.dropdown {
+  margin-left: 5px;
+}
+
+ul#account-dropdown {
+  width: 116px !important;
+  top: 64px !important;
+}
+
 #filter-container,
 #filter-form {
   padding-top: 10px;
@@ -58,6 +71,25 @@ button.sort:hover {
 
 .ingred-preview {
   margin-bottom: 70px;
+}
+
+.form-card {
+  padding: 5px 10px;
+}
+
+.header-row {
+  margin-bottom: 0;
+}
+
+ul#ingred-list {
+  margin-top: 20px;
+  margin-left: 40px !important;
+}
+
+@media (min-width: 601px) {
+  ul#ingred-list {
+    margin-top: 30px;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

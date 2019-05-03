@@ -1,84 +1,85 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div class="row">
-    <h4 class="header grey-text center">Add a Recipe</h4>
-</div>
-<div class="row">
-    <form id="form" action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
-        <div class="row">
-            <div class="input-field col s8">
-                <i class="material-icons prefix">short_text</i>
-                <input id="title" name="title" type="text" required>
-                <label>Recipe Title</label>
-            </div>
-            <div class="input-field col s4">
-                <i class="material-icons prefix">add_a_photo</i>
-                <input id="photo_src" name="photo_src" type="text">
-                <label>Photo Url</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s4">
-                <i class="material-icons prefix">person</i>
-                {% if 'username' in session %}
-                <input id="user_name" name="user_name" type="text" value="{{ session['username'] }}" required>
-                {% else %}
-                <input id="user_name" name="user_name" type="text" required>
-                {% endif %}
-                <label for="user_name">User</label>
-            </div>
-            <div class="input-field col s4">
-                <i class="material-icons prefix">restaurant</i>
-                <input id="cuisine_name" name="cuisine_name" type="text" class="autocomplete" required>
-                <label for="cuisine_name">Cuisine Type</label>
-            </div>
-            <div class="input-field col s4">
-                <i class="material-icons prefix">local_dining</i>
-                <select name="meal-type" id="meal_type" multiple>
-                    <option value="" disabled selected> Choose your option</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Other">Other</option>
-                </select>
-                <label for="meal_type">Meal Type</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">list</i>
-                <ul id="ingred-list">
-                    <li><input name="ingredients[0]" id="ingredients" class="materialize-textarea" required></li>
-                    <a class="btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i class="material-icons">add</i></a>
-                </ul>
-                <label for="ingredients">Ingredients</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">description</i>
-                <ol id="method-list">
-                    <li><textarea name="method[0]" id="method" class="materialize-textarea" required></textarea></li>
-                    <a class="btn-floating btn-small waves-effect waves-light blue" id="add-method"><i class="material-icons">add</i></a>
-                </ol>
-                <label for="method">Method</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <i class="material-icons prefix">label</i>
-                <div class="input-recipe-tags">
-                    <input>
+<div class="card form-card">
+    <div class="row header-row">
+        <h4 class="header grey-text center">Add a Recipe</h4>
+    </div>
+    <div class="row">
+        <form id="form" action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
+            <div class="row">
+                <div class="input-field col s12 m8">
+                    <i class="material-icons prefix">short_text</i>
+                    <input id="title" name="title" type="text" required>
+                    <label>Recipe Title</label>
+                </div>
+                <div class="input-field col s12 m2">
+                    <i class="material-icons prefix">add_a_photo</i>
+                    <input id="photo_src" name="photo_src" type="text">
+                    <label>Photo Url</label>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" id="add_new">Add Recipe
-                <i class="material-icons right">playlist_add</i>
-            </button>
-        </div>
-    </form>
+            <div class="row">
+                <div class="input-field col s12 m4">
+                    <i class="material-icons prefix">person</i>
+                    {% if 'username' in session %}
+                    <input id="user_name" name="user_name" type="text" value="{{ session['username'] }}" required>
+                    {% else %}
+                    <input id="user_name" name="user_name" type="text" required>
+                    {% endif %}
+                    <label for="user_name">User</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <i class="material-icons prefix">restaurant</i>
+                    <input id="cuisine_name" name="cuisine_name" type="text" class="autocomplete" required>
+                    <label for="cuisine_name">Cuisine Type</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <i class="material-icons prefix">local_dining</i>
+                    <select name="meal-type" id="meal_type" multiple>
+                        <option value="" disabled selected> Choose your option</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <label for="meal_type">Meal Type</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">list</i>
+                    <ul id="ingred-list">
+                        <li><input name="ingredients[0]" id="ingredients" class="materialize-textarea" required></li>
+                        <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i class="material-icons">add</i></a>
+                    </ul>
+                    <label for="ingredients">Ingredients</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description</i>
+                    <ol id="method-list">
+                        <li><textarea name="method[0]" id="method" class="materialize-textarea" required></textarea></li>
+                        <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-method"><i class="material-icons">add</i></a>
+                    </ol>
+                    <label for="method">Method</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">label</i>
+                    <div class="input-recipe-tags">
+                        <input>
+                    </div>
+                </div>
+            </div>
+            <div class="row center">
+                <button class="btn waves-effect waves-light" type="submit" id="add_new">Add Recipe
+                    <i class="material-icons right">playlist_add</i>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 
