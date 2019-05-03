@@ -140,6 +140,37 @@
         $('.tabs').tabs();
     });
 
+    let ingredientCount = 1;
+    $("#add-ingred").on('click', function() {
+        $('#ingred-list').append(`<li><textarea name='ingredients[${ingredientCount++}]' class="materialize-textarea"></textarea></li>`);
+
+        $("#ingred-cont>a.delete").css('display', 'inline-block');
+    });
+
+    $("#del-ingred").on('click', function() {
+        $('#ingred-list>li:last').remove();
+
+        let listCount = $("#ingred-list").children().length;
+        if (listCount == 1) {
+            $("#ingred-cont>a.delete").css('display', 'none');
+        }
+    });
+
+    let methodCount = 1;
+    $("#add-method").on('click', function() {
+        $('#method-list').append(`<li><textarea name='method[${methodCount++}]' class="materialize-textarea"></textarea></li>`);
+
+        $("#method-cont>a.delete").css('display', 'inline-block');
+    });
+    $("#del-method").on('click', function() {
+        $('#method-list>li:last').remove();
+
+        let listCount = $("#method-list").children().length;
+        if (listCount == 1) {
+            $("#method-cont>a.delete").css('display', 'none');
+        }
+    });
+
 </script>
 {% block scripts %} {% endblock %}
 </body>

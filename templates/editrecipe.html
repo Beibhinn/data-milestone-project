@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12">
+                <div id="ingred-cont" class="input-field col s12">
                     <i class="material-icons prefix">list</i>
                     <ul id="ingred-list">
                         {% for ingred in recipe.ingredients %}
@@ -50,14 +50,14 @@
                                    value="{{ingred}}"
                                    required></li>
                         {% endfor %}
-                        <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i
-                                class="material-icons">add</i></a>
                     </ul>
+                    <a class="right delete btn-floating btn-small waves-effect waves-light red" id="del-ingred"><i class="material-icons">close</i></a>
+                    <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i class="material-icons">add</i></a>
                     <label for="ingredients">Ingredients</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12">
+                <div id="method-cont" class="input-field col s12">
                     <i class="material-icons prefix">description</i>
                     <ol id="method-list">
                         {% for method in recipe.method %}
@@ -65,9 +65,9 @@
                             <textarea name="method[{{ loop.index0 }}]" id="method" class="materialize-textarea">{{method}}</textarea>
                         </li>
                         {% endfor %}
-                        <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-method"><i
-                                class="material-icons">add</i></a>
                     </ol>
+                    <a class="right delete btn-floating btn-small waves-effect waves-light red" id="del-method"><i class="material-icons">close</i></a>
+                    <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-method"><i class="material-icons">add</i></a>
                     <label for="method">Method</label>
                 </div>
             </div>
