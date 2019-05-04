@@ -1,7 +1,7 @@
 import os
 
 import math
-from flask import Flask, render_template, redirect, request, url_for, session, flash, send_from_directory
+from flask import Flask, render_template, redirect, request, url_for, session, flash, Response
 from flask_pymongo import PyMongo, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
 import json
@@ -50,9 +50,11 @@ def create_tag_if_not_already():
     if not recipe_tags:
         return
 
-    tags.insert_many([{'tag_name': tag['tag']}
+    new_tags = [{'tag_name': tag['tag']}
                       for tag in recipe_tags
-                      if not tags.find_one({'tag_name': tag['tag']})])
+                      if not tags.find_one({'tag_name': tag['tag']})]
+    if new_tags:
+        tags.insert_many(new_tags)
 
 
 def find_list_of_recipes(mongo_filter, page):
@@ -260,10 +262,10 @@ def update_recipe(recipe_id):
     return redirect(url_for('get_recipes'))
 
 
-@app.route('/delete_recipe/<recipe_id>')
+@app.route('/delete_recipe/<recipe_id>', methods=['POST'])
 def delete_recipe(recipe_id):
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
-    return redirect(url_for('get_recipes'))
+    return Response(status=204)
 
 
 if __name__ == '__main__':
