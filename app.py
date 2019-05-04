@@ -19,12 +19,14 @@ RECIPES_PER_PAGE = 12
 
 def create_recipe_from_form(form):
     items = form.to_dict().items()
-    recipe = {key: value for (key, value) in items if 'ingredients' not in key and 'method' not in key}
+    recipe = {key: value for (key, value) in items}
     recipe['ingredients'] = [value for (key, value) in items if 'ingredients' in key]
     recipe['method'] = [value for (key, value) in items if 'method' in key]
     recipe['tag_name'] = [item['tag'] for item in json.loads(form['tag_name'])]
     recipe['likes'] = []
     recipe['meal_type'] = form.getlist('meal-type')
+    if not recipe['photo_src']:
+        recipe['photo_src'] = 'https://countrylakesdental.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.jpg'
     return recipe
 
 
