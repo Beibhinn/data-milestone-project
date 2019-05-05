@@ -56,6 +56,11 @@ button.sort:hover {
   background-color: #0b7a75;
 }
 
+.single-card img {
+  max-height: 75vh !important;
+  object-fit: cover !important;
+}
+
 .method {
   padding-left: 24px;
 }

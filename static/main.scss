@@ -78,6 +78,11 @@ button.sort:hover {
 
 //----------------------------------------viewrecipe.html
 
+.single-card img {
+  max-height: 75vh!important;
+  object-fit: cover!important;
+}
+
 .method {
   padding-left: 24px;
 }
