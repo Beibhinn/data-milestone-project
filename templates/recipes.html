@@ -14,9 +14,9 @@
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
                             onclick="sort('title','desc')">Z-A</button>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
-                            onclick="sort('likes','asc')"><i class="material-icons">arrow_upward</i></button>
+                            onclick="sort('like_count','asc')"><i class="material-icons">arrow_upward</i></button>
 					<button class="sort btn btn-floating waves-effect btn-flat grey-text text-darken-1"
-                            onclick="sort('likes','desc')"><i class="material-icons">arrow_downward</i></button>
+                            onclick="sort('like_count','desc')"><i class="material-icons">arrow_downward</i></button>
 				</span>
     <form id="filter-form" action="{{ url_for('get_recipes') }}" method="GET" style="display: none">
         <div class="input-field col s12 m6 l3">

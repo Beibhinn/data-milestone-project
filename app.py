@@ -89,29 +89,31 @@ def get_recipes():
     if tags:
         recipe_filter['tag_name'] = {"$all": tags}
 
-    recipes = mongo.db.recipes.find(recipe_filter)
-    total_recipes = recipes.count()
+    page = request.args.get('page') or 1
+    sort_by = request.args.get('sort') or "_id"
+    recipes = mongo.db.recipes.aggregate([
+        {
+            "$match": recipe_filter,
+        },
+        {
+            "$addFields": {"like_count": {"$size": {"$ifNull": ["$likes", []]}}}
+        },
+        {
+            "$sort": {sort_by: ASCENDING if request.args.get('order') == 'asc' else DESCENDING}
+        },
+        {
+            "$skip": RECIPES_PER_PAGE * (int(page) - 1)
+        },
+        {
+            "$limit": RECIPES_PER_PAGE
+        }
+    ])
 
-    sort_by = request.args.get('sort')
-    if sort_by:
-        sort_order = request.args.get('order')
-        if sort_by == 'likes':
-            # Likes have to be sorted by us because PyMongo won't let us
-            # sort by array length (unless we use aggregation).
-            recipes = sorted(recipes,
-                             key=lambda recipe: len(recipe['likes']),
-                             reverse=sort_order == 'desc')
-        else:
-            recipes = recipes.sort(sort_by, DESCENDING if sort_order == 'desc' else ASCENDING)
-
-    num_pages = math.ceil(recipes.count() / RECIPES_PER_PAGE)
-
-    page = request.args.get('page')
-    if page:
-        recipes.skip(RECIPES_PER_PAGE * (int(page) - 1))
+    total_recipes = mongo.db.recipes.count(recipe_filter)
+    num_pages = math.ceil(total_recipes / RECIPES_PER_PAGE)
 
     return render_template("recipes.html",
-                           recipes=list(recipes.limit(RECIPES_PER_PAGE)),
+                           recipes=list(recipes),
                            cuisines=mongo.db.cuisine.find(),
                            users=mongo.db.users.find(),
                            tags=mongo.db.tags.find(),
