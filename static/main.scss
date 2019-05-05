@@ -8,6 +8,7 @@ $light-pink : #f9ada0;
 $bright-pink : #f9627d;
 $purpley-pink : #c65b7c;
 $violet : #5b3758;
+$text-color : #9e9e9e;
 
 $medium-and-up: (min-width: 601px);
 
@@ -54,6 +55,11 @@ div.small-card-action {
 ul#account-dropdown {
   width: 116px !important;
   top: 64px !important;
+  float: right !important;
+}
+
+.dropdown-content li > a {
+  color: $primary-color;
 }
 
 //----------------------------------------recipes.html
@@ -61,6 +67,16 @@ ul#account-dropdown {
 #filter-container,
 #filter-form {
   padding-top: 10px;
+  color: #9e9e9e;
+}
+
+#filter-form {
+  min-height: 300px !important;
+  padding-left: 20px;
+}
+
+#filter-form > .select-wrapper > input.select-dropdown {
+  color: $text-color !important;
 }
 
 button.sort {
@@ -72,8 +88,24 @@ button.sort:hover {
   color: $light-pink;
 }
 
+.filter-buttons {
+  background-color: $light-pink !important;
+  border-radius: 25px;
+}
+
 .add {
   background-color: $greeny-blue;
+}
+
+@media (min-width: 601px) {
+  #filter-form {
+    min-height: 170px !important;
+  }
+}
+@media (min-width: 993px) {
+  #filter-form {
+    min-height: 100px !important;
+  }
 }
 
 //----------------------------------------viewrecipe.html
@@ -94,6 +126,10 @@ button.sort:hover {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
   margin-right: 0;
   color: $primary-color;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
+  color: #c65b7c;
 }
 
 .ingred-preview {

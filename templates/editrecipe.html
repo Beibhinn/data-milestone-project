@@ -5,7 +5,7 @@
         <h4 class="header grey-text center">Edit Recipe</h4>
     </div>
     <div class="row">
-        <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST" class="col s12">
+        <form id="form" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST" class="col s12">
             <div class="row">
                 <div class="input-field col s12 m8">
                     <i class="material-icons prefix">short_text</i>
@@ -75,14 +75,14 @@
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">label</i>
                     <div class="input-recipe-tags">
-                        {% for tag in recipe.tag_name %}
-                        <div class="chip">
-                            {{ tag }}
-                            {% if 'username' in session %}
-                            <i class="close material-icons">close</i>
-                            {% endif %}
-                        </div>
-                        {% endfor %}
+{#                        {% for tag in recipe.tag_name %}#}
+{#                        <div class="chip" tabindex="0">#}
+{#                            {{ tag }}#}
+{#                            {% if 'username' in session %}#}
+{#                            <i class="close material-icons">close</i>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                        {% endfor %}#}
                         <input>
                     </div>
                 </div>
@@ -100,24 +100,21 @@
 
 {% block scripts %}
 <script>
-    let ingredientCount = ingredients.length;
+    /*ingredientCount = ingredients.length;
     $("#add-ingred").on('click', function () {
         $('#ingred-list li:last').append(`<li><input name='ingredients[${ingredientCount++}]' class="materialize-textarea"></li>`);
     });
-    let methodCount = method.length;
+    methodCount = method.length;
     $("#add-method").on('click', function () {
         $('#method-list li:last').append(`<li><textarea name='method[${methodCount++}]' class="materialize-textarea"></textarea></li>`);
-    });
+    });*/
 
     $(document).ready(function () {
         const selected_types = [
-            { %
-        for type in recipe.meal_types %}
-        '{{ type }}',
-        { % endfor %
-    }
-    ]
-        ;
+        {% for type in recipe.meal_types %}
+            '{{ type }}',
+        {% endfor %}
+        ];
         $('#meal_type').children().each(function () {
             if (selected_types.indexOf(this.getAttribute('value')) >= 0) {
                 this.addClass('selected')

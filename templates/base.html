@@ -20,6 +20,7 @@
         <a href="{{ url_for('get_recipes') }}" class="brand-logo center">For Cook's Sake</a>
         <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="{{ url_for('get_recipes') }}">All Recipes</a></li>
             <li><a href="{{ url_for('top_recipes') }}">Top Recipes</a></li>
             <li><a href="{{ url_for('meal_type')}}">Browse by meal</a></li>
             <li><a href="{{ url_for('add_recipe') }}">Add new Recipe</a></li>
@@ -27,7 +28,8 @@
         <div class="right nav-right hide-on-med-and-down">
             {% if 'username' in session %}
             <a href="#!" class="dropdown-trigger" data-target="account-dropdown">
-                <i class="material-icons account" style="display: inline-block">account_circle</i><span>{{ session['username'] }}</span>
+                <i class="material-icons account" style="display: inline-block; position: absolute; right: 70px">account_circle</i>
+                <span style="position: absolute; right: 35px;">{{ session['username'] }}</span>
                 <i class="material-icons dropdown right">arrow_drop_down</i>
             </a>
             {% else %}
@@ -82,6 +84,7 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('get_recipes') }}">All Recipes</a></li>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('top_recipes') }}">Top Recipes</a></li>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('meal_type')}}">Browse by meal</a></li>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('add_recipe') }}">Add new Recipe</a></li>
@@ -106,6 +109,7 @@
         $('.sidenav').sidenav();
         $(".dropdown-trigger").dropdown();
         $('.fixed-action-btn').floatingActionButton();
+        $('.tabs').tabs();
     });
     $('.input-recipe-tags').chips({
         placeholder: 'Enter a tag',
@@ -118,7 +122,14 @@
             },
             limit: Infinity,
             minLength: 1
-        }
+        },
+        data: [
+            {% if recipe and recipe.tag_name %}
+                {% for tag in recipe.tag_name %}
+                    {tag: "{{ tag }}"},
+                {% endfor %}
+            {% endif %}
+        ]
     });
     $('#add_new').click(function () {
         JSON.stringify(M.Chips.getInstance($('.input-recipe-tags')).chipsData);
@@ -130,14 +141,11 @@
             .attr("name", "tag_name")
             .val(JSON.stringify(tags));
         $(this).append(input);
+        console.log(tags);
         return true;
     });
     $(".close").on('click', function () {
         event.target.parentElement.remove()
-    });
-
-    $(document).ready(function () {
-        $('.tabs').tabs();
     });
 
     let ingredientCount = 1;
