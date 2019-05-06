@@ -22,7 +22,7 @@
                 <div class="input-field col s12 m4">
                     <i class="material-icons prefix">person</i>
                     {% if 'username' in session %}
-                    <input id="user_name" name="user_name" type="text" value="{{ session['username'] }}" required>
+                    <input disabled id="user_name" name="user_name" type="text" value="{{ session['username'] }}" required>
                     {% else %}
                     <input id="user_name" name="user_name" type="text" required>
                     {% endif %}

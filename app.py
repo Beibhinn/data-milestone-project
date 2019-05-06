@@ -240,7 +240,11 @@ def meal_type():
 
 @app.route('/add_recipe')
 def add_recipe():
-    return render_template("addrecipe.html", cuisines=mongo.db.cuisine.find(), tags=mongo.db.tags.find())
+    if 'username' in session:
+        return render_template("addrecipe.html", cuisines=mongo.db.cuisine.find(), tags=mongo.db.tags.find())
+    else:
+        flash('Please sign in to add a new recipe')
+        return render_template("login.html")
 
 
 @app.route('/insert_recipe', methods=["POST"])
