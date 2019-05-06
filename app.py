@@ -8,9 +8,9 @@ import json
 import bcrypt
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = 'recipe-book'
-app.config["MONGO_URI"] = 'mongodb+srv://root:r00tUser@myfirstcluster-8j8nw.mongodb.net/recipe-book?retryWrites=true'
-app.secret_key = os.getenv("SECRET", "randomsecretstringsosecure123")
+app.config["MONGO_DBNAME"] = os.environ.get('DB_NAME')
+app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+app.secret_key = os.environ.get('SECRET')
 
 mongo = PyMongo(app)
 
@@ -275,4 +275,4 @@ def delete_recipe(recipe_id):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)

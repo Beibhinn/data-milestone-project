@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "2a951053-8fc0-415a-b347-0beb95479537",
+		"name": "recipe site",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user",
+							"value": "Steve",
+							"type": "text"
+						},
+						{
+							"key": "pass_word",
+							"value": "MyPassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/delete_recipe/5cd032c1d746fa3438bb698c",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"delete_recipe",
+						"5cd032c1d746fa3438bb698c"
+					]
+				},
+				"description": "http://127.0.0.1:5000/delete_recipe/5cd032c1d746fa3438bb698c"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Awesome recipe",
+							"type": "text"
+						},
+						{
+							"key": "user_name",
+							"value": "Steve",
+							"type": "text"
+						},
+						{
+							"key": "cuisine_name",
+							"value": "French",
+							"type": "text"
+						},
+						{
+							"key": "ingredients",
+							"value": "breath of a freshly greased salamander",
+							"type": "text"
+						},
+						{
+							"key": "method",
+							"value": "catch in jar, pour on food and serve",
+							"type": "text"
+						},
+						{
+							"key": "tag_name",
+							"value": "[{ \"tag\": \"tag of thrones\" }]",
+							"type": "text"
+						},
+						{
+							"key": "photo_src",
+							"value": "''",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/update_recipe/5cd032c1d746fa3438bb698c",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"update_recipe",
+						"5cd032c1d746fa3438bb698c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
