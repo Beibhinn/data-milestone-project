@@ -44,6 +44,17 @@ div.small-card-action {
 }
 //----------------------------------------base.html
 
+.brand-logo {
+  height: 56px;
+}
+
+
+@media (min-width: 601px) {
+  .brand-logo {
+    height: 64px;
+  }
+}
+
 .account {
   padding-right: 7px;
 }
@@ -88,6 +99,10 @@ button.sort:hover {
   color: $light-pink;
 }
 
+#buttons-filter {
+  padding-left: 10px;
+}
+
 .filter-buttons {
   background-color: $light-pink !important;
   border-radius: 25px;
@@ -100,6 +115,9 @@ button.sort:hover {
 @media (min-width: 601px) {
   #filter-form {
     min-height: 170px !important;
+  }
+  #buttons-filter {
+    padding-top: 20px;
   }
 }
 @media (min-width: 993px) {
