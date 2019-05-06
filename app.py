@@ -261,15 +261,15 @@ def edit_recipe(recipe_id):
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
-    recipes.update({'_id': ObjectId(recipe_id)},
-                   create_recipe_from_form(request.form))
-    return redirect(url_for('get_recipes'))
+    result = recipes.update({'_id': ObjectId(recipe_id), "user_name": session['username']},
+                            create_recipe_from_form(request.form))
+    return redirect(url_for('get_recipes'), code=302 if result['n'] else 403)
 
 
 @app.route('/delete_recipe/<recipe_id>', methods=['POST'])
 def delete_recipe(recipe_id):
-    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
-    return Response(status=204)
+    result = mongo.db.recipes.remove({'_id': ObjectId(recipe_id), "user_name": session['username']})
+    return Response(status=204 if result['n'] else 403)
 
 
 if __name__ == '__main__':
