@@ -1,0 +1,59 @@
+[
+	{
+		"_id": {
+			"$oid": "5c951aa01c9d440000c6c7a7"
+		},
+		"title": "Recipe One",
+		"ingredients": [
+			"Ingredient One",
+			"Ingredient Two",
+			"Ingredient Three"
+		],
+		"method": [
+			"Step 1",
+			"Step 2",
+			"Step 3"
+		],
+		"user_name": "TestUser",
+		"cuisine_name": "Test",
+		"tag_name": [
+			"gluten free",
+			"ketogenic",
+			"dairy free",
+			"vegetarian"
+		],
+		"photo_src": "https://via.placeholder.com/150",
+		"likes": [
+			"UserB"
+		],
+		"meal_type": [
+			"Breakfast",
+			"Lunch"
+		]
+	},
+	{
+		"_id": {
+			"$oid": "6c951aa01c9d440000c6c7a8"
+		},
+		"title": "Recipe Two",
+		"ingredients": [
+			"Ingredient One",
+			"Ingredient Two"
+		],
+		"method": [
+			"Step 1",
+			"Step 2"
+		],
+		"user_name": "UserA",
+		"cuisine_name": "Test",
+		"tag_name": [
+			"gluten free",
+			"ketogenic"
+		],
+		"photo_src": "https://via.placeholder.com/300",
+		"likes": [],
+		"meal_type": [
+			"Breakfast"
+		]
+	}
+]

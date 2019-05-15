@@ -1,0 +1,10 @@
+[
+	{
+		"_id": 1234567890,
+		"user_name": "TestUser",
+		"password": "JDJiJDEyJEh4cmpyZThleE9yazZ4V3VoQlV5bGVZelJkUmI1VFFzZUg3YTJOYlE1VVRzcHlKNExKcWsu",
+		"favourites": [
+			{"$oid": "6c951aa01c9d440000c6c7a8"}
+		]
+	}
+]

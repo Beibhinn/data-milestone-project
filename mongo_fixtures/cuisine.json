@@ -1,0 +1,20 @@
+[
+  {
+    "_id":{
+      "$oid":"5c951e491c9d440000c6c7a8"
+    },
+    "cuisine_name":"Italian"
+  },
+  {
+    "_id":{
+      "$oid":"5c951e491c9d440000c6c7a9"
+    },
+    "cuisine_name":"Traditional"
+  },
+  {
+    "_id":{
+      "$oid":"5c951e491c9d440000c6c7a0"
+    },
+    "cuisine_name":"Japanese"
+  }
+]

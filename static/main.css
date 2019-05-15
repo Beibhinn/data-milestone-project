@@ -1,12 +1,3 @@
-nav,
-.page-footer {
-  background-color: #c65b7c;
-}
-
-.nav-right {
-  padding-right: 10px;
-}
-
 img.small-activator {
   height: 280px;
   object-fit: cover;
@@ -23,6 +14,15 @@ div.small-card-action {
 
 .card span.small-card-title {
   font-size: 22px;
+}
+
+nav,
+.page-footer {
+  background-color: #c65b7c;
+}
+
+.nav-right {
+  padding-right: 10px;
 }
 
 .brand-logo {
@@ -106,6 +106,10 @@ button.sort:hover {
 .single-card img {
   max-height: 75vh !important;
   object-fit: cover !important;
+}
+
+#ingredient-list {
+  margin-left: 10px;
 }
 
 .method {

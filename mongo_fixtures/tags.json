@@ -1,0 +1,20 @@
+[
+  {
+    "_id":{
+      "$oid":"5c951ed51c9d440000c6c7aa"
+    },
+    "tag_name":"ketogenic"
+  },
+  {
+    "_id":{
+      "$oid":"5c951ed51c9d440000c6c7ab"
+    },
+    "tag_name":"Milky"
+  },
+  {
+    "_id":{
+      "$oid":"5c951ed51c9d440000c6c7ac"
+    },
+    "tag_name":"Cheesy"
+  }
+]

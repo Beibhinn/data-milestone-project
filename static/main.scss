@@ -12,17 +12,6 @@ $text-color : #9e9e9e;
 
 $medium-and-up: (min-width: 601px);
 
-//---------------------------------------navbar
-
-nav,
-.page-footer {
-  background-color : $purpley-pink;
-}
-
-.nav-right {
-  padding-right: 10px;
-}
-
 //---------------------------------------cards
 
 img.small-activator {
@@ -42,8 +31,17 @@ div.small-card-action {
 .card span.small-card-title {
   font-size: 22px;
 }
-//----------------------------------------base.html
 
+//---------------------------------------navbar
+
+nav,
+.page-footer {
+  background-color : $purpley-pink;
+}
+
+.nav-right {
+  padding-right: 10px;
+}
 .brand-logo {
   height: 56px;
 }
@@ -131,6 +129,10 @@ button.sort:hover {
 .single-card img {
   max-height: 75vh!important;
   object-fit: cover!important;
+}
+
+#ingredient-list {
+  margin-left: 10px;
 }
 
 .method {
