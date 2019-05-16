@@ -159,7 +159,7 @@ def register():
 
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert({'user_name': request.form['user_name'], 'password': hashpass})
+            users.insert({'user_name': request.form['user_name'], 'password': hashpass, 'favourites': []})
             session['username'] = request.form['user_name']
             session['favourites'] = []
             return redirect(url_for('get_recipes'))
