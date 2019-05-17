@@ -26,6 +26,10 @@ div.small-card-content {
   vertical-align: middle;
 }
 
+.card-title {
+  font-family: 'Courgette', cursive !important;
+}
+
 div.small-card-action {
   padding-bottom : 20px;
 }
@@ -56,6 +60,7 @@ nav,
 
 .brand-logo {
   height: 56px;
+  font-family: "Macondo Swash Caps", cursive;
 }
 
 @media (min-width: 601px) {
