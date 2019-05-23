@@ -1,5 +1,5 @@
+import bcrypt
 import pytest
-import pytest_mongodb
 from bson.objectid import ObjectId
 import app
 
@@ -135,11 +135,18 @@ def test_unlike_recipe_by_user_in_session(client, mongodb):
 
 def test_login(client, mongodb):
     app.mongodb = mongodb
+    # We have to set the password here because the fixture loads it in as a unicode string (and causes hard-to-debug bcrypt issues)
+    mongodb.users.update({'user_name': 'TestUser'}, {
+        'user_name': 'TestUser',
+        'password': bcrypt.hashpw('MyPassword'.encode('utf-8'), bcrypt.gensalt()),
+        'favourites': [ObjectId('6c951aa01c9d440000c6c7a8')]
+    })
     form = {
         'user': 'TestUser',
         'pass_word': 'MyPassword'
     }
     result = client.post('/login', data=form)
+    assert(result.status_code == 302)
     with client.session_transaction() as session:
         assert 'username' in session
         assert session['username'] == 'TestUser'
