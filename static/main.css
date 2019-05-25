@@ -26,6 +26,10 @@ nav,
   background-color: #c65b7c;
 }
 
+nav ul a:hover {
+  color: #ffffff;
+}
+
 @media (min-width: 993px) and (max-width: 1199px) {
   #nav-mobile {
     display: none !important;
@@ -44,6 +48,10 @@ nav,
   font-family: "Macondo Swash Caps", cursive;
 }
 
+.brand-logo:hover {
+  color: #ffffff;
+}
+
 @media (min-width: 601px) {
   .brand-logo {
     height: 64px;
@@ -55,6 +63,10 @@ nav,
 
 .dropdown {
   margin-left: 5px;
+}
+
+.dropdown-trigger:hover {
+  color: #ffffff;
 }
 
 ul#account-dropdown {
@@ -93,9 +105,9 @@ button.sort {
   background-color: #f9ada0 !important;
 }
 
-button.sort:hover {
-  background-color: #f9627d;
-  color: #f9ada0;
+button.sort:hover,
+.filter-buttons:hover {
+  background-color: #f9627d !important;
 }
 
 #buttons-filter {
@@ -107,8 +119,16 @@ button.sort:hover {
   border-radius: 25px;
 }
 
+a:hover {
+  color: #36bafc;
+}
+
 .add {
   background-color: #0b7a75;
+}
+
+.pagination li.active {
+  background-color: #f9627d !important;
 }
 
 @media (min-width: 601px) {
@@ -189,6 +209,10 @@ ul#ingred-list {
 }
 #tags {
   margin-top: 10px;
+}
+
+.header {
+  font-family: "Courgette", cursive;
 }
 
 /*# sourceMappingURL=main.css.map */

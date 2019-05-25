@@ -46,9 +46,9 @@
                     <i class="material-icons prefix">list</i>
                     <ul id="ingred-list">
                         {% for ingred in recipe.ingredients %}
-                        <li><input name="ingredients[{{ loop.index }}]" id="ingredients" class="materialize-textarea"
-                                   value="{{ingred}}"
-                                   required></li>
+                            <li><input name="ingredients[{{ loop.index }}]" id="ingredients" class="materialize-textarea"
+                                       value="{{ingred}}"
+                                       required></li>
                         {% endfor %}
                     </ul>
                     <a class="right delete btn-floating btn-small waves-effect waves-light red" id="del-ingred" style="display: none"><i class="material-icons">close</i></a>
@@ -61,9 +61,9 @@
                     <i class="material-icons prefix">description</i>
                     <ol id="method-list">
                         {% for method in recipe.method %}
-                        <li>
-                            <textarea name="method[{{ loop.index0 }}]" id="method" class="materialize-textarea">{{method}}</textarea>
-                        </li>
+                            <li>
+                                <textarea name="method[{{ loop.index0 }}]" id="method" class="materialize-textarea">{{method}}</textarea>
+                            </li>
                         {% endfor %}
                     </ol>
                     <a class="right delete btn-floating btn-small waves-effect waves-light red" id="del-method" style="display: none"><i class="material-icons">close</i></a>

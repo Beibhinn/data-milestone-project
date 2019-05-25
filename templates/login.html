@@ -8,11 +8,11 @@
                 <p>Sign in to upvote recipes you like, and to keep track of your favourite recipes!</p>
                 <form method=POST action="{{ url_for('login') }}">
                     <div class="input-field col s12 m6">
-                        <input id="user" name="user" type="text" class="validate">
+                        <input id="user" name="user" type="text" class="validate" required>
                         <label for="user">Username:</label>
                     </div>
                     <div class="input-field col s12 m6">
-                        <input id="pass_word" name="pass_word" type="text" class="validate">
+                        <input id="pass_word" name="pass_word" type="text" class="validate" required>
                         <label for="pass_word">Password:</label>
                     </div>
                     <div class="center">

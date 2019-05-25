@@ -3,45 +3,53 @@
 <div id="filter-container" class="row">
     <span>
         <label>Filters:</label>
+        <!-- button will display a filter form when clicked -->
         <button class="sort btn btn-floating waves-effect btn-flat " id="filter">
             <i class="material-icons">filter_list</i></button>
     </span>
 
     <span class="right">
         <label>Sort:</label>
+        <!-- Will sort recipes by title, alphabetically -->
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
-                            onclick="sort('title','asc')">A-Z</button>
+                            onclick="sort('title','asc')" title="Sort by title, alphabetically">A-Z</button>
+        <!-- Will sort recipes by title, reverse alphabetically -->
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
-                            onclick="sort('title','desc')">Z-A</button>
+                            onclick="sort('title','desc')" title="Sort by title, reverse alphabetically">Z-A</button>
+        <!-- Will sort recipes by likes, lowest to highest -->
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
-                            onclick="sort('like_count','asc')"><i class="material-icons">arrow_upward</i></button>
+                            onclick="sort('like_count','asc')" title="Sort by likes, low to high"><i class="material-icons">arrow_upward</i></button>
+        <!-- Will sort recipes by likes, highest to lowest -->
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
-                            onclick="sort('like_count','desc')"><i class="material-icons">arrow_downward</i></button>
+                            onclick="sort('like_count','desc')" title="Sort by likes, high to low"><i class="material-icons">arrow_downward</i></button>
 	</span>
         <form id="filter-form" class="card" action="{{ url_for('get_recipes') }}" method="GET" style="display: none">
             <div class="input-field col s12 m6 l3">
+                <!-- all cuisine types in the cuisine database will auto-populate this dropdown menu-->
                 <select name="cuisine_name">
                     <option value="" disabled selected>Choose your option</option>
                     {% for cuisine in cuisines %}
-                    <option value="{{cuisine.cuisine_name}}">{{cuisine.cuisine_name}}</option>
+                        <option value="{{cuisine.cuisine_name}}">{{cuisine.cuisine_name}}</option>
                     {% endfor %}}
                 </select>
                 <label>Cuisine Select</label>
             </div>
             <div class="input-field col s12 m6 l3">
+                <!-- all users in the users database will auto-populate this dropdown menu-->
                 <select name="user_name">
                     <option value="" disabled selected>Choose your option</option>
                     {% for user in users %}
-                    <option value="{{user.user_name}}">{{user.user_name}}</option>
+                        <option value="{{user.user_name}}">{{user.user_name}}</option>
                     {% endfor %}}
                 </select>
                 <label>User Select</label>
             </div>
             <div class="input-field col s12 m6 l3">
+                <!-- all tags in the tags database will auto-populate this dropdown menu. Multiple tags can be selected-->
                 <select multiple name="tag_name[]">
                     <option value="" disabled selected>Choose your option</option>
                     {% for tag in tags %}
-                    <option value="{{tag.tag_name}}">{{tag.tag_name}}</option>
+                        <option value="{{tag.tag_name}}">{{tag.tag_name}}</option>
                     {% endfor %}}
                 </select>
                 <label>Tag Multiple Select</label>
@@ -57,54 +65,57 @@
         </form>
 </div>
 <div class="row no-margin">
+    <!-- Total results are shown indicating how many recipes were found and are displayed across all pages. Only 12 recipes will be displayed per page-->
     <span class="right">
         <p class="grey-text"> Total results: {{ total }}</p>
     </span>
 </div>
 <div class="row">
+    <!-- If no recipes found, body of the page will be empty. Display message to inform the user search has been completed but no results matching their search were found-->
     {% if recipes|length == 0 %}
-    <div class="toast" style="position: initial">No recipes found.<i class="close material-icons">close</i></div>
+        <div class="toast" style="position: initial">No recipes found.<i class="close material-icons">close</i></div>
     {% else %}
-    {% for recipe in recipes %}
-    <div class="col s12 m6 l4">
-        <div class="card sticky-action">
-            <div class="card-image small-card-image waves-effect waves-block waves-light">
-                <img class="activator small-activator" src="{{recipe.photo_src}}">
-            </div>
-            <div class="card-content small-card-content">
-                    <span class="card-title small-card-title activator grey-text text-darken-4">{{recipe.title}}<i
-                            class="material-icons right">more_vert</i></span>
-                <p>By <a href="{{url_for('user_recipes', user_name=recipe.user_name)}}">{{recipe.user_name}}</a></p>
-            </div>
-            <div class="card-action small-card-action">
-                <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}" class="link">Full recipe</a>
-                <div class="right">
-                    {% if recipe.likes|length == 1 %}
-                        {{ recipe.likes|length }} like
-                    {% else %}
-                    {{ recipe.likes|length }} likes
-                    {% endif %}
+        <!-- Display a recipe card for each recipe found which matches search -->
+        {% for recipe in recipes %}
+            <div class="col s12 m6 l4">
+                <div class="card sticky-action">
+                    <div class="card-image small-card-image waves-effect waves-block waves-light">
+                        <img class="activator small-activator" src="{{recipe.photo_src}}">
+                    </div>
+                    <div class="card-content small-card-content">
+                            <span class="card-title small-card-title activator grey-text text-darken-4">{{recipe.title}}<i
+                                    class="material-icons right">more_vert</i></span>
+                        <p>By <a href="{{url_for('user_recipes', user_name=recipe.user_name)}}">{{recipe.user_name}}</a></p>
+                    </div>
+                    <div class="card-action small-card-action">
+                        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}" class="link">Full recipe</a>
+                        <div class="right">
+                            {% if recipe.likes|length == 1 %}
+                                {{ recipe.likes|length }} like
+                            {% else %}
+                                {{ recipe.likes|length }} likes
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">{{recipe.title}}<i
+                                    class="material-icons right">close</i></span>
+                        <div class="ingred-preview">
+                        {% for item in recipe.ingredients %}
+                            <p>{{ item }}</p>
+                        {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{recipe.title}}<i
-                            class="material-icons right">close</i></span>
-                <div class="ingred-preview">
-                {% for item in recipe.ingredients %}
-                    <p>{{ item }}</p>
-                {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
     {% endif %}
 </div>
 <div class="center">
     <ul class="pagination">
         <li class="waves-effect"><a href="#" onclick="decrement_page();"><i class="material-icons">chevron_left</i></a></li>
         {% for i in range(num_pages) %}
-        <li class="waves-effect"><a href="#" onclick="go_to_page({{ loop.index }});">{{ loop.index }}</a></li>
+            <li class="waves-effect"><a href="#" onclick="go_to_page({{ loop.index }});">{{ loop.index }}</a></li>
         {% endfor %}
         <li class="waves-effect"><a href="#" onclick="increment_page();"><i class="material-icons">chevron_right</i></a></li>
     </ul>

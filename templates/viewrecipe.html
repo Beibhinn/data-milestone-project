@@ -7,13 +7,14 @@
         <div class="card">
             <div class="card-image single-card">
                 <img src="{{recipe.photo_src}}">
+                <!-- Edit and delete buttons will only be visible and available to the user who posted the recipe. Clicking delete will open a confirmation dialogue window-->
                 {% if is_owner %}
-                <a onclick="confirmDelete()"
-                   class="btn-floating halfway-fab waves-effect waves-light red" style="right: 70px;"><i
-                        class="material-icons">delete</i></a>
-                <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-                   class="btn-floating halfway-fab waves-effect waves-light blue"><i
-                        class="material-icons">mode_edit</i></a>
+                    <a onclick="confirmDelete()"
+                       class="btn-floating halfway-fab waves-effect waves-light red" style="right: 70px;"><i
+                            class="material-icons">delete</i></a>
+                    <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                       class="btn-floating halfway-fab waves-effect waves-light blue"><i
+                            class="material-icons">mode_edit</i></a>
                 {% endif %}
             </div>
             <div class="card-content">
@@ -25,7 +26,7 @@
                     <h6>Ingredients</h6>
                     <ul id="ingredient-list">
                         {% for item in recipe.ingredients %}
-                        <li>{{ item }}</li>
+                            <li>{{ item }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -33,7 +34,7 @@
                     <h6>Method</h6>
                     <ol class="method">
                         {% for list in recipe.method %}
-                        <li>{{ list }}</li>
+                            <li>{{ list }}</li>
                         {% endfor %}
                     </ol>
                 </div>
@@ -41,22 +42,22 @@
             <div class="card-action">
                 <div class="row">
                 {% for tag in recipe.tag_name %}
-
                     <div class="chip">
                         <a href="{{url_for('tag_recipes', tag_name=tag)}}">{{ tag }}</a>
                     </div>
                 {% endfor %}
+                <!-- User will only be able to like and favourite other user's recipes. The user's own recipes are automatically saved to their own account-->
                 {% if is_signed_in and not is_owner %}
-                <div class="right" style="display: inline-block">
-                    <i style="font-size:18pt"
-                       id="like"
-                       onclick="toggleLike()"
-                       class="{{ 'fas' if is_liked else 'far' }} fa-thumbs-up"></i>
-                    <i style="font-size:18pt"
-                       id="favourite"
-                       onclick="toggleFav()"
-                       class="{{ 'fas' if is_favourite else 'far' }} fa-heart"></i>
-                </div>
+                    <div class="right" style="display: inline-block">
+                        <i style="font-size:18pt"
+                           id="like"
+                           onclick="toggleLike()"
+                           class="{{ 'fas' if is_liked else 'far' }} fa-thumbs-up"></i>
+                        <i style="font-size:18pt"
+                           id="favourite"
+                           onclick="toggleFav()"
+                           class="{{ 'fas' if is_favourite else 'far' }} fa-heart"></i>
+                    </div>
                 {% endif %}
                     </div>
             </div>

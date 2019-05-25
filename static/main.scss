@@ -45,6 +45,10 @@ nav,
   background-color : $purpley-pink;
 }
 
+nav ul a:hover {
+  color: #ffffff;
+}
+
 @media (min-width: 993px) and (max-width: 1199px) {
   #nav-mobile {
     display: none !important;
@@ -63,6 +67,10 @@ nav,
   font-family: "Macondo Swash Caps", cursive;
 }
 
+.brand-logo:hover {
+  color: #ffffff;
+}
+
 @media (min-width: 601px) {
   .brand-logo {
     height: 64px;
@@ -75,6 +83,10 @@ nav,
 
 .dropdown {
   margin-left: 5px;
+}
+
+.dropdown-trigger:hover {
+  color: #ffffff;
 }
 
 ul#account-dropdown {
@@ -115,9 +127,9 @@ button.sort {
   background-color: $light-pink !important;
 }
 
-button.sort:hover {
-  background-color: $bright-pink;
-  color: $light-pink;
+button.sort:hover,
+.filter-buttons:hover {
+  background-color: $bright-pink !important;
 }
 
 #buttons-filter {
@@ -129,8 +141,16 @@ button.sort:hover {
   border-radius: 25px;
 }
 
+a:hover {
+  color: #36bafc;
+}
+
 .add {
   background-color: $greeny-blue;
+}
+
+.pagination li.active {
+  background-color: $bright-pink !important;
 }
 
 @media (min-width: 601px) {
@@ -215,4 +235,11 @@ ul#ingred-list {
 
 #tags {
   margin-top: 10px;
+}
+
+
+//---------------------------------------toprecipes.html
+
+.header {
+  font-family: 'Courgette', cursive;
 }
