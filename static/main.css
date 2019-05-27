@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Baloo+Bhai|Courgette|Macondo+Swash+Caps|Permanent+Marker|Rock+Salt");
+@import url("https://fonts.googleapis.com/css?family=Courgette|Macondo+Swash+Caps");
 img.small-activator {
   height: 280px;
   object-fit: cover;
@@ -27,6 +27,10 @@ nav,
 }
 
 nav ul a:hover {
+  color: #ffffff;
+}
+
+.nav-right > a.btn:hover {
   color: #ffffff;
 }
 
