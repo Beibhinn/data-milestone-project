@@ -10,7 +10,7 @@
 
 <body>
 
-<!-- Dropdown menu options visible only to logged in users -->
+{# Dropdown menu options visible only to logged in users #}
 <ul id="account-dropdown" class="dropdown-content">
   <li><a href="{{url_for('user_account', user_name=session['username'])}}">My Account</a></li>
   <li><a href="{{ url_for('logout') }}">Sign out</a></li>
@@ -20,7 +20,7 @@
     <div class="nav-wrapper">
         <a href="{{ url_for('get_recipes') }}" class="brand-logo center">For Cook's Sake</a>
         <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <!-- Main links navigation. Displayed to the left on larger screens. Hidden and replaced with side menu on small screens-->
+        {# Main links navigation. Displayed to the left on larger screens. Hidden and replaced with side menu on small screens #}
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ url_for('get_recipes') }}">All Recipes</a></li>
             <li><a href="{{ url_for('top_recipes') }}">Top Recipes</a></li>
@@ -28,7 +28,7 @@
             <li><a href="{{ url_for('add_recipe') }}">Add new Recipe</a></li>
         </ul>
         <div class="right nav-right hide-on-med-and-down">
-            <!-- Displays user name and dropdown menu when user is logged in-->
+            {# Displays user name and dropdown menu when user is logged in #}
             {% if 'username' in session %}
                 <a href="#!" class="dropdown-trigger" data-target="account-dropdown">
                     <i class="material-icons account" style="display: inline-block; position: absolute; right: 70px">account_circle</i>
@@ -36,7 +36,7 @@
                     <i class="material-icons dropdown right">arrow_drop_down</i>
                 </a>
             {% else %}
-                <!-- When user is not logged in, provide links to login form and register forms-->
+                {# When user is not logged in, provide links to login form and register forms #}
                 <a class="waves-effect waves-light btn" href="{{ url_for('login') }}">Sign in</a>
                 <a class="waves-effect waves-light btn" href="{{ url_for('register') }}">Register</a>
             {% endif %}
@@ -45,7 +45,7 @@
 </nav>
 
 <ul class="sidenav collection" id="mobile-menu">
-<!-- Menu slides in from side when burger menu button is clicked on mobile/ small devices -->
+{# Menu slides in from side when burger menu button is clicked on mobile/ small devices #}
     <li class="collection-item">
         <a href="{{ url_for('get_recipes') }}">All Recipes</a>
         <a href="{{ url_for('top_recipes') }}">Top Recipes</a>
@@ -53,20 +53,20 @@
         <a href="{{ url_for('add_recipe') }}">Add new Recipe</a>
     </li>
     <li class="collection-item">
-        <!-- If user is logged in, provide link to the user's account and the logout button-->
+        {# If user is logged in, provide link to the user's account and the logout button #}
         {% if 'username' in session %}
             <a href="{{url_for('user_account', user_name=session['username'])}}"><i
                     class="material-icons" style="display: inline-block">account_circle</i>{{ session['username'] }}'s Account</a>
             <a class="waves-effect waves-light btn" href="{{ url_for('logout') }}">Sign out</a>
         {% else %}
-        <!-- If user is not logged in, provide links to sign in/ register -->
+        {# If user is not logged in, provide links to sign in/ register #}
             <a class="waves-effect waves-light btn" href="{{ url_for('login') }}">Sign in</a>
             <a class="waves-effect waves-light btn" href="{{ url_for('register') }}">Register</a>
         {% endif %}
     </li>
 </ul>
 
-<!-- Create section where any error messages will go, if required-->
+{# Create section where any error messages will go, if required #}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
     <div class="flashes toast" style="position: initial">

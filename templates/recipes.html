@@ -3,29 +3,29 @@
 <div id="filter-container" class="row">
     <span>
         <label>Filters:</label>
-        <!-- button will display a filter form when clicked -->
+        {# button will display a filter form when clicked #}
         <button class="sort btn btn-floating waves-effect btn-flat " id="filter">
             <i class="material-icons">filter_list</i></button>
     </span>
 
     <span class="right">
         <label>Sort:</label>
-        <!-- Will sort recipes by title, alphabetically -->
+        {# Will sort recipes by title, alphabetically #}
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
                             onclick="sort('title','asc')" title="Sort by title, alphabetically">A-Z</button>
-        <!-- Will sort recipes by title, reverse alphabetically -->
+        {# Will sort recipes by title, reverse alphabetically #}
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
                             onclick="sort('title','desc')" title="Sort by title, reverse alphabetically">Z-A</button>
-        <!-- Will sort recipes by likes, lowest to highest -->
+        {# Will sort recipes by likes, lowest to highest #}
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
                             onclick="sort('like_count','asc')" title="Sort by likes, low to high"><i class="material-icons">arrow_upward</i></button>
-        <!-- Will sort recipes by likes, highest to lowest -->
+        {# Will sort recipes by likes, highest to lowest #}
         <button class="sort btn btn-floating waves-effect btn-flat white-text"
                             onclick="sort('like_count','desc')" title="Sort by likes, high to low"><i class="material-icons">arrow_downward</i></button>
 	</span>
         <form id="filter-form" class="card" action="{{ url_for('get_recipes') }}" method="GET" style="display: none">
             <div class="input-field col s12 m6 l3">
-                <!-- all cuisine types in the cuisine database will auto-populate this dropdown menu-->
+                {# all cuisine types in the cuisine database will auto-populate this dropdown menu #}
                 <select name="cuisine_name">
                     <option value="" disabled selected>Choose your option</option>
                     {% for cuisine in cuisines %}
@@ -35,7 +35,7 @@
                 <label>Cuisine Select</label>
             </div>
             <div class="input-field col s12 m6 l3">
-                <!-- all users in the users database will auto-populate this dropdown menu-->
+                {# all users in the users database will auto-populate this dropdown menu #}
                 <select name="user_name">
                     <option value="" disabled selected>Choose your option</option>
                     {% for user in users %}
@@ -45,7 +45,7 @@
                 <label>User Select</label>
             </div>
             <div class="input-field col s12 m6 l3">
-                <!-- all tags in the tags database will auto-populate this dropdown menu. Multiple tags can be selected-->
+                {# all tags in the tags database will auto-populate this dropdown menu. Multiple tags can be selected #}
                 <select multiple name="tag_name[]">
                     <option value="" disabled selected>Choose your option</option>
                     {% for tag in tags %}
@@ -65,17 +65,17 @@
         </form>
 </div>
 <div class="row no-margin">
-    <!-- Total results are shown indicating how many recipes were found and are displayed across all pages. Only 12 recipes will be displayed per page-->
+    {# Total results are shown indicating how many recipes were found and are displayed across all pages. Only 12 recipes will be displayed per page #}
     <span class="right">
         <p class="grey-text"> Total results: {{ total }}</p>
     </span>
 </div>
 <div class="row">
-    <!-- If no recipes found, body of the page will be empty. Display message to inform the user search has been completed but no results matching their search were found-->
+    {# If no recipes found, body of the page will be empty. Display message to inform the user search has been completed but no results matching their search were found #}
     {% if recipes|length == 0 %}
         <div class="toast" style="position: initial">No recipes found.<i class="close material-icons">close</i></div>
     {% else %}
-        <!-- Display a recipe card for each recipe found which matches search -->
+        {# Display a recipe card for each recipe found which matches search #}
         {% for recipe in recipes %}
             <div class="col s12 m6 l4">
                 <div class="card sticky-action">

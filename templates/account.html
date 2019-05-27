@@ -12,12 +12,12 @@
 
 <div id="recipes">
     <div class="row">
-        <!-- Page will not display any recipes if none have been added by the user. Display message to user to indicate why no content is displayed -->
+        {# Page will not display any recipes if none have been added by the user. Display message to user to indicate why no content is displayed #}
         {% if recipes.count() == 0 %}
             <div class="toast" style="position: initial">It looks like you haven't added any recipes yet.<i
                     class="close material-icons">close</i></div>
         {% else %}
-        <!-- Display a recipe card for each of the recipes added by the user -->
+        {# Display a recipe card for each of the recipes added by the user #}
             {% for recipe in recipes %}
                 <div class="col s12 m4">
                     <div class="card sticky-action">
@@ -47,13 +47,13 @@
 </div>
 <div id="favourites">
     <div class="row">
-        <!-- Page will not display any recipes if none have been favourited by the user. Display message to user to indicate why no content is displayed -->
+        {# Page will not display any recipes if none have been favourited by the user. Display message to user to indicate why no content is displayed #}
         {% if favourites.count() == 0 %}
             <div class="toast" style="position: initial">It looks like you haven't favourited any recipes yet. Click the heart symbol on the page for a recipe you like to find it easier later on.<i
                     class="close material-icons">close</i></div>
         {% else %}
             {% for recipe in favourites %}
-            <!-- Display a recipe card for each of the recipes in the user's favourite list -->
+            {# Display a recipe card for each of the recipes in the user's favourite list #}
                 <div class="col s12 m4">
                     <div class="card sticky-action">
                         <div class="card-image small-card-image waves-effect waves-block waves-light">

@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="input-field col s12 m4">
                     <i class="material-icons prefix">person</i>
-                    <!-- Username is automatically inputted and can't be changed, as a user has to be logged in to post a recipe anyway-->
+                    {# Username is automatically inputted and can't be changed, as a user has to be logged in to post a recipe anyway #}
                     {% if 'username' in session %}
                         <input disabled id="user_name" name="user_name" type="text" value="{{ session['username'] }}" required>
                     {% else %}
@@ -52,7 +52,7 @@
                     <ul id="ingred-list">
                         <li><input name="ingredients[0]" id="ingredients" class="materialize-textarea" required></li>
                     </ul>
-                    <!-- Delete button will only be displayed if there is more than one <li> in #ingred-list -->
+                    {# Delete button will only be displayed if there is more than one <li> in #ingred-list #}
                     <a class="right delete btn-floating btn-small waves-effect waves-light red" id="del-ingred" style="display: none"><i class="material-icons">close</i></a>
                     <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-ingred"><i class="material-icons">add</i></a>
                     <label for="ingredients">Ingredients</label>
@@ -64,7 +64,7 @@
                     <ol id="method-list">
                         <li><textarea name="method[0]" id="method" class="materialize-textarea" required></textarea></li>
                     </ol>
-                    <!-- Delete button will only be displayed if there is more than one <li> in #method-list -->
+                    {# Delete button will only be displayed if there is more than one <li> in #method-list #}
                     <a class="right delete btn-floating btn-small waves-effect waves-light red" id="del-method" style="display: none"><i class="material-icons">close</i></a>
                     <a class="right btn-floating btn-small waves-effect waves-light blue" id="add-method"><i class="material-icons">add</i></a>
                     <label for="method">Method</label>

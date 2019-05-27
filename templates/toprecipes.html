@@ -4,7 +4,7 @@
     <h4 class="header grey-text center">Top Recipes</h4>
 </div>
 <div class="row">
-    <!-- If no recipes have 1+ likes, body of the page will be empty. Display message to inform the user no results were found-->
+    {# If no recipes have 1+ likes, body of the page will be empty. Display message to inform the user no results were found #}
     {% if recipes.count == 0 %}
         <div class="toast" style="position: initial">No recipes found. Maybe give some recipes a like and see if they make it into the top recipes list!<i class="close material-icons">close</i></div>
     {% else %}

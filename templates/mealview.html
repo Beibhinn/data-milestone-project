@@ -14,7 +14,7 @@
 
 <div id="breakfast">
     <div class="row">
-        <!-- If no recipes are marked as a 'breakfast' food, body of the page will be empty. Display message to inform the user no results were found-->
+        {# If no recipes are marked as a 'breakfast' food, body of the page will be empty. Display message to inform the user no results were found #}
         {% if breakfast.count() == 0 %}
             <div class="toast" style="position: initial">It looks like there aren't any breakfast recipes yet.<i
                     class="close material-icons">close</i></div>
@@ -50,7 +50,7 @@
 </div>
 <div id="lunch">
     <div class="row">
-        <!-- If no recipes are marked as a 'lunch' food, body of the page will be empty. Display message to inform the user no results were found-->
+        {# If no recipes are marked as a 'lunch' food, body of the page will be empty. Display message to inform the user no results were found #}
         {% if lunch.count() == 0 %}
             <div class="toast" style="position: initial">It looks like there aren't any lunch recipes yet.<i
                     class="close material-icons">close</i></div>
@@ -86,7 +86,7 @@
 </div>
 <div id="dinner">
     <div class="row">
-        <!-- If no recipes are marked as a 'dinner' food, body of the page will be empty. Display message to inform the user no results were found-->
+        {# If no recipes are marked as a 'dinner' food, body of the page will be empty. Display message to inform the user no results were found #}
         {% if dinner.count() == 0 %}
             <div class="toast" style="position: initial">It looks like there aren't any dinner recipes yet.<i
                     class="close material-icons">close</i></div>
@@ -122,7 +122,7 @@
 </div>
 <div id="other">
     <div class="row">
-        <!-- If no recipes are marked as an 'other' food, body of the page will be empty. Display message to inform the user no results were found-->
+        {# If no recipes are marked as an 'other' food, body of the page will be empty. Display message to inform the user no results were found #}
         {% if other.count() == 0 %}
             <div class="toast" style="position: initial">It looks like there aren't any other recipes yet.<i
                     class="close material-icons">close</i></div>

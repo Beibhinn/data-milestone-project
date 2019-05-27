@@ -75,14 +75,6 @@
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">label</i>
                     <div class="input-recipe-tags">
-{#                        {% for tag in recipe.tag_name %}#}
-{#                        <div class="chip" tabindex="0">#}
-{#                            {{ tag }}#}
-{#                            {% if 'username' in session %}#}
-{#                            <i class="close material-icons">close</i>#}
-{#                            {% endif %}#}
-{#                        </div>#}
-{#                        {% endfor %}#}
                         <input id="tags">
                     </div>
                     <label for="tags">Tags</label>
@@ -102,15 +94,6 @@
 
 {% block scripts %}
 <script>
-    /*ingredientCount = ingredients.length;
-    $("#add-ingred").on('click', function () {
-        $('#ingred-list li:last').append(`<li><input name='ingredients[${ingredientCount++}]' class="materialize-textarea"></li>`);
-    });
-    methodCount = method.length;
-    $("#add-method").on('click', function () {
-        $('#method-list li:last').append(`<li><textarea name='method[${methodCount++}]' class="materialize-textarea"></textarea></li>`);
-    });*/
-
     $(document).ready(function () {
         const selected_types = [
         {% for type in recipe.meal_types %}

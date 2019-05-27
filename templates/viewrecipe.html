@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-image single-card">
                 <img src="{{recipe.photo_src}}">
-                <!-- Edit and delete buttons will only be visible and available to the user who posted the recipe. Clicking delete will open a confirmation dialogue window-->
+                {# Edit and delete buttons will only be visible and available to the user who posted the recipe. Clicking delete will open a confirmation dialogue window #}
                 {% if is_owner %}
                     <a onclick="confirmDelete()"
                        class="btn-floating halfway-fab waves-effect waves-light red" style="right: 70px;"><i
@@ -46,7 +46,7 @@
                         <a href="{{url_for('tag_recipes', tag_name=tag)}}">{{ tag }}</a>
                     </div>
                 {% endfor %}
-                <!-- User will only be able to like and favourite other user's recipes. The user's own recipes are automatically saved to their own account-->
+                {# User will only be able to like and favourite other user's recipes. The user's own recipes are automatically saved to their own account #}
                 {% if is_signed_in and not is_owner %}
                     <div class="right" style="display: inline-block">
                         <i style="font-size:18pt"
