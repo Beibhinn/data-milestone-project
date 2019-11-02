@@ -24,4 +24,4 @@ python-dateutil==2.8.0
 PyYAML==5.1
 sentinels==1.0.0
 six==1.12.0
-Werkzeug==0.15.2
+Werkzeug==0.15.3
