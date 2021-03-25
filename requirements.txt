@@ -21,7 +21,7 @@ pytest==4.4.1
 pytest-flask==0.14.0
 pytest-mongodb==2.1.2
 python-dateutil==2.8.0
-PyYAML==5.1
+PyYAML==5.4
 sentinels==1.0.0
 six==1.12.0
 Werkzeug==0.15.2
